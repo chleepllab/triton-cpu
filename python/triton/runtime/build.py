@@ -32,8 +32,12 @@ def _build(name, src, srcdir, library_dirs, include_dirs, libraries):
     system = platform.system()
     machine = platform.machine()
     so = os.path.join(srcdir, '{name}{suffix}'.format(name=name, suffix=suffix))
+    print("so: ", so)
     # try to avoid setuptools if possible
-    cc = os.environ.get("CC")
+    #cc = os.environ.get("CC")
+    #cc = os.path.expanduser("~/toolchain/bin/riscv64-unknown-linux-gnu-gcc")
+    cc = os.path.expanduser("~/llvm-project/install/bin/clang")
+    print("cc: ", cc)
     if cc is None:
         # TODO: support more things here.
         clang = shutil.which("clang")
@@ -51,12 +55,16 @@ def _build(name, src, srcdir, library_dirs, include_dirs, libraries):
     if scheme == 'posix_local':
         scheme = 'posix_prefix'
     py_include_dir = sysconfig.get_paths(scheme=scheme)["include"]
+    print("py_include_dir: ", py_include_dir)
     custom_backend_dirs = set(os.getenv(var) for var in ('TRITON_CUDACRT_PATH', 'TRITON_CUDART_PATH'))
     include_dirs = include_dirs + [srcdir, py_include_dir, *custom_backend_dirs]
     # for -Wno-psabi, see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=111047
-    cc_cmd = [cc, src, "-O3", "-shared", "-fPIC", "-Wno-psabi", "-o", so]
+    sysroot = os.path.expanduser("~/toolchain/sysroot")
+    toolchain = os.path.expanduser("~/toolchain")
+    #cc_cmd = [cc, src, "-O3", "-shared", "-fPIC", "-Wno-psabi", "-march=rv64gcv", "-mabi=lp64d", f"--sysroot={sysroot}", "-o", so]
+    cc_cmd = [cc, src, "-O3", "-shared", "-fPIC", "-Wno-psabi", "-march=rv64gcv", "-mabi=lp64d", f"--sysroot={sysroot}", f"--gcc-toolchain={toolchain}", "-fuse-ld=lld", "-o", so]
 
-    libraries += ["gcc"]
+    #libraries += ["gcc"]
     # Use dynamic lookup to load Python library on Mac
     if system == "Darwin":
         cc_cmd += ["-undefined", "dynamic_lookup"]
@@ -70,6 +78,7 @@ def _build(name, src, srcdir, library_dirs, include_dirs, libraries):
         cc_cmd.extend(["-Wl,-rpath", dir])
     # CPU backend uses C++ (driver.cpp). Some old version compilers need a specific C++17 flag.
     if src.endswith(".cpp") or src.endswith(".cc"):
+        print(".cpp or .cc")
         cc_cmd += ["-std=c++17"]
         if not os.environ.get("TRITON_DISABLE_OPENMP", None):
             libomp_path = os.environ.get("TRITON_LOCAL_LIBOMP_PATH", None)
@@ -83,15 +92,17 @@ def _build(name, src, srcdir, library_dirs, include_dirs, libraries):
                 else:
                     print("Warning: TRITON_LOCAL_LIBOMP_PATH is not set for Apple clang. OpenMP is disabled.")
             else:
-                cc_cmd += ["-fopenmp"]
+                #cc_cmd += ["-fopenmp"]
                 if libomp_path:
                     print("Info: Ignoring TRITON_LOCAL_LIBOMP_PATH for non-Apple clang compiler")
     if src.endswith(".s"):
         # This is required to properly parse .file directives
+        print(".s")
         cc_cmd += ["-g"]
         if system == "Linux" and machine in ("aarch64", "arm64"):
             # On Arm backend, some CPU (neoverse-v2) needs to be specified through -mcpu
             cc_cmd += ["-mcpu=native"]
+    print(f"Compiler command: {cc_cmd}")
     ret = subprocess.check_call(cc_cmd)
     if ret != 0:
         raise RuntimeError("Failed to compile so.")

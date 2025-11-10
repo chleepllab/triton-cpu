@@ -76,6 +76,7 @@ class CPUUtils(object):
             f.write(kernel)
             f.flush()
             import ctypes
+            print("f.name: ", f.name)
             lib = ctypes.cdll.LoadLibrary(f.name)
             fn_ptr = getattr(lib, name)
             fn_ptr_as_void_p = ctypes.cast(fn_ptr, ctypes.c_void_p).value

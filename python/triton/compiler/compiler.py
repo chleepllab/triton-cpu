@@ -282,7 +282,9 @@ def compile(src, target=None, options=None):
         raise
     use_ir_loc = os.environ.get("USE_IR_LOC", None)
     for ext, compile_ir in list(stages.items())[first_stage:]:
+        print("ext: ", ext)
         next_module = compile_ir(module, metadata)
+        print("End compile_ir")
         ir_filename = f"{file_name}.{ext}"
         if (fn_override_manager is not None and (full_name := fn_override_manager.get_file(ir_filename)) is not None):
             print(f"\nOverriding kernel with file {full_name}")
@@ -376,6 +378,7 @@ class CompiledKernel:
         self.src = src
         self.hash = hash
         self.name = self.metadata.name
+        print("self.name: ", self.name)
         # stores the text of each level of IR that was generated during compilation
         asm_files = [Path(p) for c, p in metadata_group.items() if not c.endswith(".json")]
         binary_ext = backend.binary_ext

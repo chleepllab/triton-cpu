@@ -296,6 +296,7 @@ class CPUBackend(BaseBackend):
         #if options.extern_libs:
         #    paths = [path for (name, path) in options.extern_libs]
         #   llvm.link_extern_libs(llvm_mod, paths)
+        #llvm.optimize_module(llvm_mod, llvm.OPTIMIZE_O3, "generic-rv64", "+m,+f,+d,+v", riscv_flags, False)
         llvm.optimize_module(llvm_mod, llvm.OPTIMIZE_O3)
         # Get some metadata
         metadata["shared"] = 0
@@ -303,6 +304,7 @@ class CPUBackend(BaseBackend):
         ret = str(llvm_mod)
         del llvm_mod
         del context
+        print("End make_llir")
         return ret
 
     @staticmethod
@@ -315,10 +317,54 @@ class CPUBackend(BaseBackend):
             asm_path = os.path.join(tmpdir, "kernel.s")
             Path(asm_path).write_text(src)
             lib_dirs = cpu_driver.library_dirs
-            libs = ["m", "TritonCPURuntime", "sleef"]
+            libs = ["m", "TritonCPURuntime"]
+            #libs = ["m"]
+            print("lib_dirs: ", lib_dirs)
+            print("cpu_driver.include_dirs: ", cpu_driver.include_dirs)
             so = _build("kernel", asm_path, tmpdir, lib_dirs, cpu_driver.include_dirs, libs)
+            print(f"[DEBUG] _build returned: {so}")
+            print(f"[DEBUG] so file exists: {os.path.exists(so)}")
             with open(so, "rb") as f:
                 return f.read()
+
+    @staticmethod
+    def make_obj(src, metadata, options):
+        ll_path = Path(src).with_suffix('.llir')
+        obj_path = Path(src).with_suffix('.o')
+    
+        clang_cmd = [
+            'clang',
+            '-c',
+            '-O2',
+            '-fPIC',
+            str(ll_path),
+            '-o', str(obj_path)
+        ]
+        import platform
+        import subprocess
+        if platform.machine() == 'x86_64':
+            clang_cmd.extend(['-march=x86-64', '-mtune=generic'])
+        elif platform.machine() == 'aarch64':
+            clang_cmd.extend(['-march=armv8-a'])
+        print(f"Compiling LLVM IR to object file: {' '.join(clang_cmd)}")
+        subprocess.check_call(clang_cmd)
+        return str(obj_path)
+
+    @staticmethod
+    def make_so_from_obj(src, metadata, options):
+        obj_path = Path(src).with_suffix('.o')
+        so_path = Path(src).with_suffix('.so')
+        link_cmd = [
+            'clang',
+            '-shared',
+            '-fPIC',
+            '-O2',
+            str(obj_path),
+            '-o', str(so_path)
+        ]
+        print(f"Linking object to shared library: {' '.join(link_cmd)}")
+        subprocess.check_call(link_cmd)
+        return str(so_path)
 
     def add_stages(self, stages, options):
         stages["ttir"] = lambda src, metadata: self.make_ttir(src, metadata, options)
@@ -326,6 +372,7 @@ class CPUBackend(BaseBackend):
         stages["tttcir"] = lambda src, metadata: self.make_tttcir(src, metadata, options)
         stages["llir"] = lambda src, metadata: self.make_llir(src, metadata, options)
         stages["asm"] = lambda src, metadata: self.make_asm(src, metadata, options)
+        #stages["obj"] = lambda src, metadata: self.make_obj(src, metadata, options)
         stages["so"] = lambda src, metadata: self.make_so(src, metadata, options)
 
     @functools.lru_cache()

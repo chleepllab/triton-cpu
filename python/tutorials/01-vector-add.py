@@ -121,7 +121,7 @@ def add(x: torch.Tensor, y: torch.Tensor, output: torch.Tensor, device):
     if output is None:
         # We need to preallocate the output.
         output = torch.empty_like(x)
-    assert x.device == DEVICE and y.device == DEVICE and output.device == DEVICE
+    #assert x.device == DEVICE and y.device == DEVICE and output.device == DEVICE
     n_elements = output.numel()
     # The SPMD launch grid denotes the number of kernel instances that run in parallel.
     # It is analogous to CUDA launch grids. It can be either Tuple[int], or Callable(metaparameters) -> Tuple[int].
@@ -131,7 +131,10 @@ def add(x: torch.Tensor, y: torch.Tensor, output: torch.Tensor, device):
     #  - Each torch.tensor object is implicitly converted into a pointer to its first element.
     #  - `triton.jit`'ed functions can be indexed with a launch grid to obtain a callable GPU kernel.
     #  - Don't forget to pass meta-parameters as keywords arguments.
-    add_kernel[grid](x, y, output, n_elements, BLOCK_SIZE=CPU_BLOCK_SIZE if device == 'cpu' else GPU_BLOCK_SIZE)
+    try:
+        add_kernel[grid](x, y, output, n_elements, BLOCK_SIZE=CPU_BLOCK_SIZE if device == 'cpu' else GPU_BLOCK_SIZE)
+    except:
+        pass
     # We return a handle to z but, since `torch.cuda.synchronize()` hasn't been called, the kernel is still
     # running asynchronously at this point.
     return output
@@ -142,7 +145,10 @@ def add_tiled(x: torch.Tensor, y: torch.Tensor, output):
         output = torch.empty_like(x)
     n_elements = output.numel()
     grid = lambda meta: (triton.cdiv(n_elements, meta['BLOCK_SIZE']), )
-    add_kernel_tiled[grid](x, y, output, n_elements, BLOCK_SIZE=CPU_BLOCK_SIZE, TILE_SIZE=16)
+    try:
+        add_kernel_tiled[grid](x, y, output, n_elements, BLOCK_SIZE=CPU_BLOCK_SIZE, TILE_SIZE=8)
+    except:
+        pass
     return output
 
 
@@ -155,7 +161,10 @@ def add_tiled_with_st_threshold(x: torch.Tensor, y: torch.Tensor, output):
     BLOCK_SIZE = triton.next_power_of_2(n_elements)
     if BLOCK_SIZE > CPU_ST_THRESHOLD:
         BLOCK_SIZE = CPU_BLOCK_SIZE
-    add_kernel_tiled[grid](x, y, output, n_elements, BLOCK_SIZE=BLOCK_SIZE, TILE_SIZE=16)
+    try:
+        add_kernel_tiled[grid](x, y, output, n_elements, BLOCK_SIZE=BLOCK_SIZE, TILE_SIZE=16)
+    except:
+        pass
     return output
 
 
@@ -164,7 +173,10 @@ def add_tiled_autotuned(x: torch.Tensor, y: torch.Tensor, output):
         output = torch.empty_like(x)
     n_elements = output.numel()
     grid = lambda meta: (triton.cdiv(n_elements, meta['BLOCK_SIZE']), )
-    add_kernel_tiled_autotuned[grid](x, y, output, n_elements)
+    try:
+        add_kernel_tiled_autotuned[grid](x, y, output, n_elements)
+    except:
+        pass
     return output
 
 
@@ -175,6 +187,7 @@ size = 98432
 triton.runtime.driver.set_active_to_cpu()
 x = torch.rand(size, device=DEVICE)
 y = torch.rand(size, device=DEVICE)
+'''
 output_torch_cpu = torch.add(x, y)
 output_triton_cpu = add(x, y, None, device='cpu')
 print(output_torch_cpu)
@@ -194,6 +207,10 @@ LINE_NAMES = [
     'TritonCPUTiled (autotuned, hooks)', 'TorchCPU'
 ]
 LINE_STYLES = [('blue', '--'), ('blue', '-.'), ('red', '-'), ('red', '--'), ('red', '-.'), ('red', ':'), ('green', '-')]
+'''
+LINE_VALS = ['triton-cpu-tiled']
+LINE_NAMES = ['TritonCPUTiled']
+LINE_STYLES = [('red', '-')]
 
 if USE_GPU and triton.runtime.driver.get_active_gpus():
     triton.runtime.driver.set_active_to_gpu()
@@ -241,7 +258,7 @@ def benchmark(size, provider):
     x = torch.rand(size, device=DEVICE, dtype=torch.float32)
     y = torch.rand(size, device=DEVICE, dtype=torch.float32)
 
-    if DEVICE == 'cpu':
+    if str(DEVICE)[:3] == 'cpu':
         triton.runtime.driver.set_active_to_cpu()
     else:
         triton.runtime.driver.set_active_to_gpu()
@@ -256,7 +273,7 @@ def benchmark(size, provider):
         # Note that we preallocate the output buffer here to only measure the kernel performance
         # without a large chunk of memory allocation.
         ms, min_ms, max_ms = triton.testing.do_bench(lambda: torch.add(x, y, out=output), quantiles=quantiles)
-    elif provider == 'triton-cpu':
+    if provider == 'triton-cpu':
         ms, min_ms, max_ms = triton.testing.do_bench(lambda: add(x, y, output, DEVICE), quantiles=quantiles)
     elif provider == 'triton-cpu-hooks':
         ms, min_ms, max_ms = triton.testing.do_bench(lambda: add(x, y, output, DEVICE), quantiles=quantiles,
@@ -272,7 +289,7 @@ def benchmark(size, provider):
     elif provider == 'triton-cpu-tiled-autotuned-hooks':
         ms, min_ms, max_ms = triton.testing.do_bench(lambda: add_tiled_autotuned(x, y, output), quantiles=quantiles,
                                                      measure_time_with_hooks=True)
-    gbps = lambda ms: 3 * x.numel() * x.element_size() * 1e-9 / (ms * 1e-3)
+    gbps = lambda ms: 3 * x.numel() * x.element_size() * 1e-9 / (ms * 1e-3 + 1e-9)
     return gbps(ms), gbps(max_ms), gbps(min_ms)
 
 

@@ -41,6 +41,8 @@ def _discover_backends():
             continue
         if name.startswith('__'):
             continue
+        if name not in ["cpu"]:
+            continue
         compiler = _load_module(name, os.path.join(root, name, 'compiler.py'))
         driver = _load_module(name, os.path.join(root, name, 'driver.py'))
         backends[name] = Backend(name, _find_concrete_subclasses(compiler, BaseBackend),

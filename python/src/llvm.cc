@@ -22,12 +22,14 @@
 #include "llvm/Support/Signals.h"
 #include "llvm/Support/SourceMgr.h"
 #include "llvm/Support/TargetSelect.h"
+#include "llvm/Support/CommandLine.h"
 #include "llvm/Target/TargetMachine.h"
 #include "llvm/TargetParser/Host.h"
 #include "llvm/Transforms/IPO/AlwaysInliner.h"
 #include "llvm/Transforms/InstCombine/InstCombine.h"
 #include "llvm/Transforms/Instrumentation/AddressSanitizer.h"
 #include "llvm/Transforms/Instrumentation/AddressSanitizerOptions.h"
+#include "llvm/LTO/legacy/LTOCodeGenerator.h"
 #include <csignal>
 #include <memory>
 #include <pybind11/pybind11.h>
@@ -73,6 +75,7 @@ createTargetMachine(llvm::Module *module, std::string proc,
   }
   llvm::TargetOptions opt;
   bool disableLLVMOpt = mlir::triton::tools::getBoolEnv("DISABLE_LLVM_OPT");
+  outs()<<"disableLLVMOpt in createMachine: "<<disableLLVMOpt<<"\n";
   if (enable_fp_fusion)
     opt.AllowFPOpFusion = llvm::FPOpFusion::Fast;
 
@@ -92,8 +95,10 @@ createTargetMachine(llvm::Module *module, std::string proc,
   opt.TrapUnreachable = true;
   opt.MCOptions.AsmVerbose = true;
   opt.MCOptions.PreserveAsmComments = true;
+  outs()<<"In createTargetMachine: "<<module->getTargetTriple().str()<<"\n";
+  const std::string Features = "+m,+f,+d,+v";
   std::unique_ptr<llvm::TargetMachine> machine{target->createTargetMachine(
-      module->getTargetTriple(), proc, features, opt, llvm::Reloc::PIC_,
+      module->getTargetTriple(), proc, Features, opt, llvm::Reloc::PIC_,
       std::nullopt,
       disableLLVMOpt ? llvm::CodeGenOptLevel::None
                      : llvm::CodeGenOptLevel::Aggressive)};
@@ -113,6 +118,7 @@ std::string translateLLVMIRToASM(
     shortPtr->setValue(true);
   }
   if (triton::tools::getBoolEnv("LLVM_IR_ENABLE_DUMP")) {
+    outs()<<"LLVM_IT_ENABLE_DUMP\n";
     auto optIt = options.find("print-after-all");
     if (optIt != options.end()) {
       auto optPtr = static_cast<llvm::cl::opt<bool> *>(optIt->second);
@@ -120,10 +126,12 @@ std::string translateLLVMIRToASM(
     }
   }
   bool disableLLVMOpt = triton::tools::getBoolEnv("DISABLE_LLVM_OPT");
+  outs()<<"disableLLVMOpt: "<<disableLLVMOpt<<"\n";
   if (!disableLLVMOpt) {
     // Check to see if we are passing a list of flags to disable optimizations.
     auto flagList = triton::tools::getStrEnv("DISABLE_LLVM_OPT");
     if (!flagList.empty()) {
+      outs()<<"flagList is not empty\n";
       llvm::SmallVector<StringRef, 3> split;
       StringRef(flagList.c_str()).split(split, ',');
       for (auto flag : split) {
@@ -162,11 +170,15 @@ std::string translateLLVMIRToASM(
     timePassesStr.clear();
   }
   // module->print(llvm::outs(), nullptr);
+  outs()<<"End printing\n";
 
   // create machine
   module.setTargetTriple(Triple(triple));
-  auto machine = createTargetMachine(&module, proc, enable_fp_fusion, features,
+  std::string cpu = "generic-rv64";
+  const std::string ft = "+m,+f,+d,+v";
+  auto machine = createTargetMachine(&module, cpu, enable_fp_fusion, ft,
                                      enable_fast_math);
+  outs()<<machine->getTargetTriple().str()<<" and "<<machine->getTargetCPU()<<"\n";
   // set data layout
   module.setDataLayout(machine->createDataLayout());
   // emit machine code
@@ -175,18 +187,30 @@ std::string translateLLVMIRToASM(
     llvm::raw_string_ostream stream(result);
     llvm::buffer_ostream pstream(stream);
     llvm::legacy::PassManager pass;
+    outs()<<"Begin result\n";
     // emit
     auto fileType = isObject ? llvm::CodeGenFileType::ObjectFile
                              : llvm::CodeGenFileType::AssemblyFile;
-    machine->addPassesToEmitFile(pass, pstream, nullptr, fileType);
+    outs()<<"Begin addPassesToEmitFile\n";
+    bool retAdd = machine->addPassesToEmitFile(pass, pstream, nullptr, fileType);
+    if (retAdd) {
+        outs() << "Emission of this file type is not supported!\n";
+        return ""; // or throw
+    }
+    outs()<<"End addPassesToEmitFile\n";
+    llvm::DebugFlag = true;
+    llvm::setCurrentDebugType("codegen");
     pass.run(module);
+    outs()<<"End run\n";
 
     if (enabledTiming) {
+      outs()<<"Begin enabledTiming\n";
       reportAndResetTimings(&reportStream);
       llvm::dbgs() << reportStream.str();
       timePassesStr.clear();
     }
   }
+  outs()<<"End result\n";
   return result;
 }
 
@@ -326,8 +350,12 @@ void init_triton_llvm(py::module &&m) {
       [](llvm::Module *mod, const llvm::OptimizationLevel &opt,
          std::string arch, std::string features, std::vector<std::string> flags,
          bool enable_fp_fusion) {
-        if (mlir::triton::tools::getBoolEnv("DISABLE_LLVM_OPT"))
+        outs()<<"arch: "<<arch<<"\n";
+        outs()<<"enable_fp_fusion: "<<enable_fp_fusion<<"\n";
+        if (mlir::triton::tools::getBoolEnv("DISABLE_LLVM_OPT")) {
+          outs()<<"DISABLE_LLVM_OPT\n";
           return;
+	}
         // Check to see if we are passing a list of flags to disable
         // optimizations.
         auto flagList = mlir::triton::tools::getStrEnv("DISABLE_LLVM_OPT");
@@ -341,6 +369,61 @@ void init_triton_llvm(py::module &&m) {
               auto optPtr = static_cast<llvm::cl::opt<bool> *>(optIt->second);
               *optPtr = true;
             }
+          }
+        }
+
+        /*for (const auto& flag : flags) {
+          std::string flagName, flagValue;
+          size_t equalPos = flag.find('=');
+          if (equalPos != std::string::npos) {
+            flagName = flag.substr(0, equalPos);
+            flagValue = flag.substr(equalPos + 1);
+          } else {
+            flagName = flag;
+            flagValue = "true";
+          }
+          outs()<<flagName<<":"<<flagValue<<"\n";
+          auto optIt = options.find(flagName);
+          if (optIt != options.end()) {
+            outs()<<flagName<<":"<<flagValue<<"\n";
+            if (auto intOpt = static_cast<llvm::cl::opt<int> *>(optIt->second)) {
+              try {
+                outs() << "Set LLVM flag: " << flagName << " = "<<std::stoi(flagValue) << "\n";
+                *intOpt = std::stoi(flagValue);
+              } catch (...) {
+                outs() << "Failed to set LLVM flag: " << flagName << " with value: " << flagValue << "\n";
+              }
+            } else {
+              outs() << "Unhandled LLVM flag type: " << flagName << "\n";
+            }
+          } else {
+            outs() << "Unknown LLVM flag: " << flagName << "\n";
+          }
+        }*/
+        std::vector<std::string> Options = {
+          "-mllvm", "-prefer-predicate-over-epilogue=predicate-else-scalar-epilogue",
+          "-mllvm", "-riscv-v-vector-bits-min=128",
+          "-mllvm", "--riscv-v-fixed-length-vector-lmul-max=8",
+          "-mllvm", "--riscv-v-register-bit-width-lmul=8",
+          "-mllvm", "-force-tail-folding-style=data-with-evl",
+        };
+	if (!Options.empty()) {
+          std::vector<const char *> CodegenArgv(1, "libLLVMLTO");
+          for (std::string &Arg : Options)
+            CodegenArgv.push_back(Arg.c_str());
+          llvm::cl::ParseCommandLineOptions(CodegenArgv.size(), CodegenArgv.data());
+        }
+        auto options = llvm::cl::getRegisteredOptions();
+	for (auto &[name, option] : options) {
+          outs() << "Option: "<<name;
+          if (auto *intOpt = static_cast<llvm::cl::opt<int> *>(option)) {
+            outs() << " (int) = " << *intOpt << "\n";
+          }
+          else if (auto *stringOpt = static_cast<llvm::cl::opt<std::string> *>(option)) {
+            outs() << " (string) = " << *stringOpt << "\n";
+          }
+          else {
+            outs() << " (unknown type)\n";
           }
         }
         using namespace llvm;
@@ -390,9 +473,12 @@ void init_triton_llvm(py::module &&m) {
         // in the target machine between the MLIR and Clang generated kernels
         // and break the lowering of some target specific intrinsics.
         std::unique_ptr<TargetMachine> targetMachine = nullptr;
+	outs()<<"arch: "<<arch<<"\n";
+	std::string Arch = "generic-rv64";
+	const std::string Features = "+m,+f,+d,+v";
         if (!arch.empty() && pluginFile.empty())
           targetMachine =
-              createTargetMachine(mod, arch, enable_fp_fusion, features);
+              createTargetMachine(mod, Arch, enable_fp_fusion, Features);
         PassBuilder pb(/*targetMachine=*/targetMachine.get(), tuningOptions,
                        std::nullopt, instrCbPtr);
 
@@ -450,8 +536,9 @@ void init_triton_llvm(py::module &&m) {
     if (!target) {
       throw std::runtime_error("target lookup error: " + error);
     }
+    StringRef cpu("generic-rv64");
     std::unique_ptr<llvm::TargetMachine> machine{target->createTargetMachine(
-        mod->getTargetTriple(), llvm::sys::getHostCPUName(), "", {},
+        mod->getTargetTriple(), cpu, "+m,+f,+d,+v", {},
         llvm::Reloc::PIC_)};
     mod->setDataLayout(machine->createDataLayout());
   });
@@ -477,9 +564,12 @@ void init_triton_llvm(py::module &&m) {
                 "lineno: " + std::to_string(error.getLineNo()));
           }
           auto triple = getDefaultTargerOrProcessTriple();
+	  const std::string cpu = "generic-rv64";
+          const std::string features = "+m,+f,+d,+v";
           res = translateLLVMIRToASM(*module, triple,
-                                     llvm::sys::getHostCPUName().str(), "", {},
+                                     cpu, features, {},
                                      enable_fp_fusion, false, enable_fast_math);
+          outs()<<"Finish translateLLVMIRToASM\n";
         }
         return py::str(res);
       },
@@ -594,19 +684,24 @@ void init_triton_llvm(py::module &&m) {
 
   m.def("get_cpu_tripple", []() { return llvm::sys::getProcessTriple(); });
 
-  m.def("get_cpu_name", []() { return llvm::sys::getHostCPUName().str(); });
+  m.def("get_cpu_name", []() { return "generic-rv64"; });
 
   m.def("get_cpu_features", []() {
     auto features = llvm::sys::getHostCPUFeatures();
 
     std::set<std::string> res;
-    for (auto &f : features) {
-      if (f.second)
-        res.insert(f.first().str());
-    }
+    //for (auto &f : features) {
+    //  if (f.second) {
+    //    res.insert(f.first().str());
+    //  }
+    //}
+    res.insert("+m");
+    res.insert("+f");
+    res.insert("+d");
+    res.insert("+v");
 
     // Likely something went wrong with the LLVM feature detection.
-    if (!res.size()) {
+    /*if (!res.size()) {
       std::string triple = llvm::sys::getProcessTriple();
       // e.g. arm64-apple-darwin24.1.0
       //      ^^^^^
@@ -620,7 +715,7 @@ void init_triton_llvm(py::module &&m) {
         // Safe because NEON is a mandatory feature for aarch64.
         res.insert("neon"); // For math tests
       }
-    }
+    }*/
 
     return res;
   });

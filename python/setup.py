@@ -688,14 +688,42 @@ def get_packages():
         "triton/language",
         "triton/language/extra",
         "triton/language/extra/cpu",
+        "triton/language/extra/cpu.__pycache__",
+        "triton/language/extra/cuda",
+        "triton/language/extra/cuda.__pycache__",
+        "triton/language/extra/hip",
+        "triton/language/extra/hip.__pycache__",
         "triton/runtime",
         "triton/backends",
+        "triton/backends/nvidia",
+        "triton/backends/nvidia.__pycache__",
+        "triton/backends/nvidia/bin",
+        "triton/backends/nvidia/include",
+        "triton/backends/nvidia/include/Openacc",
+        "triton/backends/nvidia/include/Openmp",
+        "triton/backends/nvidia/include/cooperative_groups",
+        "triton/backends/nvidia/include/cooperative_groups/details",
+        "triton/backends/nvidia/include/crt",
+        "triton/backends/nvidia/lib",
+        "triton/backends/nvidia/lib/cupti",
+        "triton/backends/amd",
+        "triton/backends/amd.__pycache__",
+        "triton/backends/amd/include",
+        "triton/backends/amd/include/hip",
+        "triton/backends/amd/include/hip/amd_detail",
+        "triton/backends/amd/include/hsa",
+        "triton/backends/amd/include/roctracer",
+        "triton/backends/amd/include/roctracer/ext",
+        "triton/backends/amd/lib",
+        "triton/backends/cpu",
+        "triton/backends/cpu.__pycache__",
         "triton/tools",
         "triton/tools/extra",
+        "triton/tools/extra.cuda",
     ]
-    packages += [f'triton/backends/{backend.name}' for backend in backends]
-    packages += get_extra_packages("language")
-    packages += get_extra_packages("tools")
+    #packages += [f'triton/backends/{backend.name}' for backend in backends]
+    #packages += get_extra_packages("language")
+    #packages += get_extra_packages("tools")
     if check_env_flag("TRITON_BUILD_PROTON", "ON"):  # Default ON
         packages += ["triton/profiler"]
 
