@@ -24,12 +24,12 @@
 #include "llvm/Support/TargetSelect.h"
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Target/TargetMachine.h"
+#include "llvm/Target/TargetOptions.h"
 #include "llvm/TargetParser/Host.h"
 #include "llvm/Transforms/IPO/AlwaysInliner.h"
 #include "llvm/Transforms/InstCombine/InstCombine.h"
 #include "llvm/Transforms/Instrumentation/AddressSanitizer.h"
 #include "llvm/Transforms/Instrumentation/AddressSanitizerOptions.h"
-#include "llvm/LTO/legacy/LTOCodeGenerator.h"
 #include <csignal>
 #include <memory>
 #include <pybind11/pybind11.h>
@@ -75,7 +75,6 @@ createTargetMachine(llvm::Module *module, std::string proc,
   }
   llvm::TargetOptions opt;
   bool disableLLVMOpt = mlir::triton::tools::getBoolEnv("DISABLE_LLVM_OPT");
-  outs()<<"disableLLVMOpt in createMachine: "<<disableLLVMOpt<<"\n";
   if (enable_fp_fusion)
     opt.AllowFPOpFusion = llvm::FPOpFusion::Fast;
 
@@ -95,10 +94,39 @@ createTargetMachine(llvm::Module *module, std::string proc,
   opt.TrapUnreachable = true;
   opt.MCOptions.AsmVerbose = true;
   opt.MCOptions.PreserveAsmComments = true;
-  outs()<<"In createTargetMachine: "<<module->getTargetTriple().str()<<"\n";
+
+  std::vector<std::string> Options = {
+    "--prefer-predicate-over-epilogue=predicate-else-scalar-epilogue",
+    "-riscv-v-vector-bits-min=128",
+    "--riscv-v-fixed-length-vector-lmul-max=8",
+    "--riscv-v-register-bit-width-lmul=8",
+    "-force-tail-folding-style=data-with-evl"
+  };
+  std::vector<std::string> OptionNames = {
+    "prefer-predicate-over-epilogue",
+    "riscv-v-vector-bits-min",
+    "riscv-v-fixed-length-vector-lmul-max",
+    "riscv-v-register-bit-width-lmul",
+    "force-tail-folding-style"
+  };
+  std::vector<const char *> CodegenArgv;
+  for (std::string &Arg : Options)
+    CodegenArgv.push_back(Arg.c_str());
+  llvm::cl::ParseCommandLineOptions(CodegenArgv.size(), CodegenArgv.data());
+  outs()<<"Return createTargetMachine\n";
+  auto options = llvm::cl::getRegisteredOptions();
+  for (auto &[name, option] : options) {
+    if (std::find(OptionNames.begin(), OptionNames.end(), name) != OptionNames.end()) {
+      outs() << "Option: "<<name;
+      if (auto *intOpt = static_cast<llvm::cl::opt<int> *>(option)) {
+        outs() << " (int) = " << *intOpt << "\n";
+      }
+    }
+  }
+  StringRef cpu("generic-rv64");
   const std::string Features = "+m,+f,+d,+v";
   std::unique_ptr<llvm::TargetMachine> machine{target->createTargetMachine(
-      module->getTargetTriple(), proc, Features, opt, llvm::Reloc::PIC_,
+      module->getTargetTriple(), cpu, Features, opt, llvm::Reloc::PIC_,
       std::nullopt,
       disableLLVMOpt ? llvm::CodeGenOptLevel::None
                      : llvm::CodeGenOptLevel::Aggressive)};
@@ -319,6 +347,35 @@ void init_triton_llvm(py::module &&m) {
   m.def(
       "to_module",
       [](mlir::ModuleOp &mod, llvm::LLVMContext &ctx) {
+
+        std::vector<std::string> Options = {
+          "-prefer-predicate-over-epilogue=predicate-else-scalar-epilogue",
+          "-riscv-v-vector-bits-min=128",
+          "--riscv-v-fixed-length-vector-lmul-max=8",
+          "--riscv-v-register-bit-width-lmul=8",
+          "-force-tail-folding-style=data-with-evl"
+        };
+        std::vector<std::string> OptionNames = {
+          "prefer-predicate-over-epilogue",
+          "riscv-v-vector-bits-min",
+          "riscv-v-fixed-length-vector-lmul-max",
+          "riscv-v-register-bit-width-lmul",
+          "force-tail-folding-style"
+        };
+        std::vector<const char *> CodegenArgv;
+        for (std::string &Arg : Options)
+          CodegenArgv.push_back(Arg.c_str());
+        llvm::cl::ParseCommandLineOptions(CodegenArgv.size(), CodegenArgv.data());
+        outs()<<"Return to_module\n";
+        auto options = llvm::cl::getRegisteredOptions();
+        for (auto &[name, option] : options) {
+          if (std::find(OptionNames.begin(), OptionNames.end(), name) != OptionNames.end()) {
+            outs() << "Option: "<<name;
+            if (auto *intOpt = static_cast<llvm::cl::opt<int> *>(option)) {
+              outs() << " (int) = " << *intOpt << "\n";
+            }
+          }
+        }
         std::unique_ptr<llvm::Module> llvmMod =
             mlir::translateModuleToLLVMIR(mod, ctx);
         if (!llvmMod) {
@@ -350,12 +407,8 @@ void init_triton_llvm(py::module &&m) {
       [](llvm::Module *mod, const llvm::OptimizationLevel &opt,
          std::string arch, std::string features, std::vector<std::string> flags,
          bool enable_fp_fusion) {
-        outs()<<"arch: "<<arch<<"\n";
-        outs()<<"enable_fp_fusion: "<<enable_fp_fusion<<"\n";
-        if (mlir::triton::tools::getBoolEnv("DISABLE_LLVM_OPT")) {
-          outs()<<"DISABLE_LLVM_OPT\n";
+        if (mlir::triton::tools::getBoolEnv("DISABLE_LLVM_OPT"))
           return;
-	}
         // Check to see if we are passing a list of flags to disable
         // optimizations.
         auto flagList = mlir::triton::tools::getStrEnv("DISABLE_LLVM_OPT");
@@ -372,58 +425,32 @@ void init_triton_llvm(py::module &&m) {
           }
         }
 
-        /*for (const auto& flag : flags) {
-          std::string flagName, flagValue;
-          size_t equalPos = flag.find('=');
-          if (equalPos != std::string::npos) {
-            flagName = flag.substr(0, equalPos);
-            flagValue = flag.substr(equalPos + 1);
-          } else {
-            flagName = flag;
-            flagValue = "true";
-          }
-          outs()<<flagName<<":"<<flagValue<<"\n";
-          auto optIt = options.find(flagName);
-          if (optIt != options.end()) {
-            outs()<<flagName<<":"<<flagValue<<"\n";
-            if (auto intOpt = static_cast<llvm::cl::opt<int> *>(optIt->second)) {
-              try {
-                outs() << "Set LLVM flag: " << flagName << " = "<<std::stoi(flagValue) << "\n";
-                *intOpt = std::stoi(flagValue);
-              } catch (...) {
-                outs() << "Failed to set LLVM flag: " << flagName << " with value: " << flagValue << "\n";
-              }
-            } else {
-              outs() << "Unhandled LLVM flag type: " << flagName << "\n";
-            }
-          } else {
-            outs() << "Unknown LLVM flag: " << flagName << "\n";
-          }
-        }*/
         std::vector<std::string> Options = {
-          "-mllvm", "-prefer-predicate-over-epilogue=predicate-else-scalar-epilogue",
-          "-mllvm", "-riscv-v-vector-bits-min=128",
-          "-mllvm", "--riscv-v-fixed-length-vector-lmul-max=8",
-          "-mllvm", "--riscv-v-register-bit-width-lmul=8",
-          "-mllvm", "-force-tail-folding-style=data-with-evl",
+          "-prefer-predicate-over-epilogue=predicate-else-scalar-epilogue",
+          "-riscv-v-vector-bits-min=128",
+          "--riscv-v-fixed-length-vector-lmul-max=8",
+          "--riscv-v-register-bit-width-lmul=8",
+          "-force-tail-folding-style=data-with-evl"
         };
-	if (!Options.empty()) {
-          std::vector<const char *> CodegenArgv(1, "libLLVMLTO");
-          for (std::string &Arg : Options)
-            CodegenArgv.push_back(Arg.c_str());
-          llvm::cl::ParseCommandLineOptions(CodegenArgv.size(), CodegenArgv.data());
-        }
+        std::vector<std::string> OptionNames = {
+          "prefer-predicate-over-epilogue",
+          "riscv-v-vector-bits-min",
+          "riscv-v-fixed-length-vector-lmul-max",
+          "riscv-v-register-bit-width-lmul",
+          "force-tail-folding-style"
+        };
+        std::vector<const char *> CodegenArgv;
+        for (std::string &Arg : Options)
+          CodegenArgv.push_back(Arg.c_str());
+        llvm::cl::ParseCommandLineOptions(CodegenArgv.size(), CodegenArgv.data());
+        outs()<<"Return optimize_module\n";
         auto options = llvm::cl::getRegisteredOptions();
-	for (auto &[name, option] : options) {
-          outs() << "Option: "<<name;
-          if (auto *intOpt = static_cast<llvm::cl::opt<int> *>(option)) {
-            outs() << " (int) = " << *intOpt << "\n";
-          }
-          else if (auto *stringOpt = static_cast<llvm::cl::opt<std::string> *>(option)) {
-            outs() << " (string) = " << *stringOpt << "\n";
-          }
-          else {
-            outs() << " (unknown type)\n";
+        for (auto &[name, option] : options) {
+          if (std::find(OptionNames.begin(), OptionNames.end(), name) != OptionNames.end()) {
+            outs() << "Option: "<<name;
+            if (auto *intOpt = static_cast<llvm::cl::opt<int> *>(option)) {
+              outs() << " (int) = " << *intOpt << "\n";
+            }
           }
         }
         using namespace llvm;
@@ -536,9 +563,39 @@ void init_triton_llvm(py::module &&m) {
     if (!target) {
       throw std::runtime_error("target lookup error: " + error);
     }
+
+    std::vector<std::string> Options = {
+      "--prefer-predicate-over-epilogue=predicate-else-scalar-epilogue",
+      "-riscv-v-vector-bits-min=128",
+      "--riscv-v-fixed-length-vector-lmul-max=8",
+      "--riscv-v-register-bit-width-lmul=8",
+      "-force-tail-folding-style=data-with-evl"
+    };
+    std::vector<std::string> OptionNames = {
+      "prefer-predicate-over-epilogue",
+      "riscv-v-vector-bits-min",
+      "riscv-v-fixed-length-vector-lmul-max",
+      "riscv-v-register-bit-width-lmul",
+      "force-tail-folding-style"
+    };
+    std::vector<const char *> CodegenArgv;
+    for (std::string &Arg : Options)
+      CodegenArgv.push_back(Arg.c_str());
+    llvm::cl::ParseCommandLineOptions(CodegenArgv.size(), CodegenArgv.data());
+    outs()<<"Return set_host_target\n";
+    auto options = llvm::cl::getRegisteredOptions();
+    for (auto &[name, option] : options) {
+      if (std::find(OptionNames.begin(), OptionNames.end(), name) != OptionNames.end()) {
+        outs() << "Option: "<<name;
+        if (auto *intOpt = static_cast<llvm::cl::opt<int> *>(option)) {
+          outs() << " (int) = " << *intOpt << "\n";
+        }
+      }
+    }
     StringRef cpu("generic-rv64");
+    const std::string Features = "+m,+f,+d,+v";
     std::unique_ptr<llvm::TargetMachine> machine{target->createTargetMachine(
-        mod->getTargetTriple(), cpu, "+m,+f,+d,+v", {},
+        mod->getTargetTriple(), cpu, Features, {},
         llvm::Reloc::PIC_)};
     mod->setDataLayout(machine->createDataLayout());
   });

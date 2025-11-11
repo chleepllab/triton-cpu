@@ -112,7 +112,6 @@ if(CMAKE_CROSSCOMPILING)
       "${CMAKE_SYSROOT}/usr/lib"
       "/usr/include"
       "/usr/lib")
-  #find_package(ZLIB REQUIRED PATHS ${_zlib_search_paths} NO_DEFAULT_PATH)
 endif()
 
 find_package(MLIR REQUIRED CONFIG PATHS ${MLIR_DIR})
@@ -273,12 +272,12 @@ if(TRITON_BUILD_PYTHON_MODULE)
       )
   elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64" OR CMAKE_SYSTEM_PROCESSOR MATCHES "AMD64")
       list(APPEND TRITON_LIBRARIES
-	  LLVMRISCVCodeGen
-	  LLVMRISCVAsmParser
+          LLVMRISCVCodeGen
+          LLVMRISCVAsmParser
           LLVMRISCVDisassembler
-	  LLVMRISCVDesc
+          LLVMRISCVDesc
           LLVMRISCVTargetMCA
-	  LLVMRISCVInfo
+          LLVMRISCVInfo
       )
   elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "riscv64")
       list(APPEND TRITON_LIBRARIES
