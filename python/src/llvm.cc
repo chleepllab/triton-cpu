@@ -154,12 +154,10 @@ std::string translateLLVMIRToASM(
     }
   }
   bool disableLLVMOpt = triton::tools::getBoolEnv("DISABLE_LLVM_OPT");
-  outs()<<"disableLLVMOpt: "<<disableLLVMOpt<<"\n";
   if (!disableLLVMOpt) {
     // Check to see if we are passing a list of flags to disable optimizations.
     auto flagList = triton::tools::getStrEnv("DISABLE_LLVM_OPT");
     if (!flagList.empty()) {
-      outs()<<"flagList is not empty\n";
       llvm::SmallVector<StringRef, 3> split;
       StringRef(flagList.c_str()).split(split, ',');
       for (auto flag : split) {
@@ -198,7 +196,7 @@ std::string translateLLVMIRToASM(
     timePassesStr.clear();
   }
   // module->print(llvm::outs(), nullptr);
-  outs()<<"End printing\n";
+  outs()<<"End translateLLVMIRToASM printing\n";
 
   // create machine
   module.setTargetTriple(Triple(triple));
@@ -215,30 +213,24 @@ std::string translateLLVMIRToASM(
     llvm::raw_string_ostream stream(result);
     llvm::buffer_ostream pstream(stream);
     llvm::legacy::PassManager pass;
-    outs()<<"Begin result\n";
     // emit
     auto fileType = isObject ? llvm::CodeGenFileType::ObjectFile
                              : llvm::CodeGenFileType::AssemblyFile;
-    outs()<<"Begin addPassesToEmitFile\n";
     bool retAdd = machine->addPassesToEmitFile(pass, pstream, nullptr, fileType);
     if (retAdd) {
         outs() << "Emission of this file type is not supported!\n";
         return ""; // or throw
     }
-    outs()<<"End addPassesToEmitFile\n";
     llvm::DebugFlag = true;
     llvm::setCurrentDebugType("codegen");
     pass.run(module);
-    outs()<<"End run\n";
 
     if (enabledTiming) {
-      outs()<<"Begin enabledTiming\n";
       reportAndResetTimings(&reportStream);
       llvm::dbgs() << reportStream.str();
       timePassesStr.clear();
     }
   }
-  outs()<<"End result\n";
   return result;
 }
 
@@ -366,16 +358,6 @@ void init_triton_llvm(py::module &&m) {
         for (std::string &Arg : Options)
           CodegenArgv.push_back(Arg.c_str());
         llvm::cl::ParseCommandLineOptions(CodegenArgv.size(), CodegenArgv.data());
-        outs()<<"Return to_module\n";
-        auto options = llvm::cl::getRegisteredOptions();
-        for (auto &[name, option] : options) {
-          if (std::find(OptionNames.begin(), OptionNames.end(), name) != OptionNames.end()) {
-            outs() << "Option: "<<name;
-            if (auto *intOpt = static_cast<llvm::cl::opt<int> *>(option)) {
-              outs() << " (int) = " << *intOpt << "\n";
-            }
-          }
-        }
         std::unique_ptr<llvm::Module> llvmMod =
             mlir::translateModuleToLLVMIR(mod, ctx);
         if (!llvmMod) {

@@ -281,12 +281,12 @@ if(TRITON_BUILD_PYTHON_MODULE)
       )
   elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "riscv64")
       list(APPEND TRITON_LIBRARIES
-	  LLVMRISCVCodeGen
-	  LLVMRISCVAsmParser
+          LLVMRISCVCodeGen
+          LLVMRISCVAsmParser
           LLVMRISCVDisassembler
-	  LLVMRISCVDesc
+          LLVMRISCVDesc
           LLVMRISCVTargetMCA
-	  LLVMRISCVInfo
+          LLVMRISCVInfo
       )
   elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "ppc64le")
       list(APPEND TRITON_LIBRARIES

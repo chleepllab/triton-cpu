@@ -49,7 +49,7 @@ attributes #2 = { mustprogress nocallback nofree nosync nounwind willreturn memo
 !llvm.module.flags = !{!2}
 
 !0 = distinct !DICompileUnit(language: DW_LANG_C, file: !1, producer: "triton", isOptimized: true, runtimeVersion: 0, emissionKind: LineTablesOnly)
-!1 = !DIFile(filename: "01-vector-add.py", directory: "/home/chlee/triton-cpu/python/tutorials")
+!1 = !DIFile(filename: "01-vector-add.py", directory: "/home/chlee/triton-cpu")
 !2 = !{i32 2, !"Debug Info Version", i32 3}
 !3 = distinct !DISubprogram(name: "add_kernel_tiled", linkageName: "add_kernel_tiled", scope: !1, file: !1, line: 63, type: !4, scopeLine: 63, spFlags: DISPFlagDefinition | DISPFlagOptimized, unit: !0)
 !4 = !DISubroutineType(cc: DW_CC_normal, types: !5)
