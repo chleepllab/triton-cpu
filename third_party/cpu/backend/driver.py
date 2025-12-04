@@ -183,6 +183,7 @@ def make_launcher(constants, signature, ids):
 #include <stdio.h>
 #include <string>
 #include <memory>
+#include <riscv_vector.h>
 
 #define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include <Python.h>
@@ -249,15 +250,24 @@ static inline DevicePtrInfo getPointer(PyObject *obj, int idx) {{
   return ptr_info;
 }}
 
-static std::unique_ptr<uint32_t[][3]> get_all_grids(uint32_t gridX, uint32_t gridY, uint32_t gridZ) {{
-  std::unique_ptr<uint32_t[][3]> grids(new uint32_t[gridX * gridY * gridZ][3]);
+struct Grids {{
+  std::unique_ptr<uint32_t[]> x;
+  std::unique_ptr<uint32_t[]> y;
+  std::unique_ptr<uint32_t[]> z;
+}};
+
+static Grids get_all_grids(uint32_t gridX, uint32_t gridY, uint32_t gridZ) {{
   // TODO: which order would be more effective for cache locality?
+  Grids grids;
+  grids.x = std::make_unique<uint32_t[]>(gridX * gridY * gridZ);
+  grids.y = std::make_unique<uint32_t[]>(gridX * gridY * gridZ);
+  grids.z = std::make_unique<uint32_t[]>(gridX * gridY * gridZ);
   for (uint32_t z = 0; z < gridZ; ++z) {{
     for (uint32_t y = 0; y < gridY; ++y) {{
       for (uint32_t x = 0; x < gridX; ++x) {{
-        grids[z * gridY * gridX + y * gridX + x][0] = x;
-        grids[z * gridY * gridX + y * gridX + x][1] = y;
-        grids[z * gridY * gridX + y * gridX + x][2] = z;
+        grids.x[z * gridY * gridX + y * gridX + x] = x;
+        grids.y[z * gridY * gridX + y * gridX + x] = y;
+        grids.z[z * gridY * gridX + y * gridX + x] = z;
       }}
     }}
   }}
@@ -280,21 +290,33 @@ static void run_omp_kernels(uint32_t gridX, uint32_t gridY, uint32_t gridZ, int 
   int max_threads = (num_threads > 0) ? num_threads : omp_max_threads;
 
   // Don't pay OMP overhead price when a single thread is used.
-  if (max_threads == 1) {{
-    for (size_t i = 0; i < N; ++i) {{
-      const auto [x, y, z] = all_grids[i];
-      (*kernel_ptr)({kernel_fn_args_list + ', ' if len(kernel_fn_args) > 0 else ''} x, y, z, gridX, gridY, gridZ);
-    }}
-    return;
-  }}
+  //if (max_threads == 1) {{
+  //  for (size_t i = 0; i < N; ++i) {{
+  //    const auto [x, y, z] = all_grids[i];
+  //    (*kernel_ptr)({kernel_fn_args_list + ', ' if len(kernel_fn_args) > 0 else ''} x, y, z, gridX, gridY, gridZ);
+  //  }}
+  //  return;
+  //}}
 
   // For now, use the default chunk size, total iterations / max_threads.
-#ifdef _OPENMP
-#pragma omp parallel for schedule(static) num_threads(max_threads)
-#endif // _OPENMP
-  for (size_t i = 0; i < N; ++i) {{
-    const auto [x, y, z] = all_grids[i];
-    (*kernel_ptr)({kernel_fn_args_list + ', ' if len(kernel_fn_args) > 0 else ''} x, y, z, gridX, gridY, gridZ);
+//#ifdef _OPENMP
+//#pragma omp parallel for schedule(static) num_threads(max_threads)
+//#endif // _OPENMP
+//  for (size_t i = 0; i < N; ++i) {{
+//    const auto [x, y, z] = all_grids[i];
+//    (*kernel_ptr)({kernel_fn_args_list + ', ' if len(kernel_fn_args) > 0 else ''} x, y, z, gridX, gridY, gridZ);
+//  }}
+  for (size_t i = 0; i < N; i += 8) {{
+    vuint32m8_t vx = __riscv_vle32_v_u32m8(&all_grids.x[i], 8);
+    vuint32m8_t vy = __riscv_vle32_v_u32m8(&all_grids.y[i], 8);
+    vuint32m8_t vz = __riscv_vle32_v_u32m8(&all_grids.z[i], 8);
+    uint32_t px[8], py[8], pz[8];
+    __riscv_vse32_v_u32m8(px, vx, 8);
+    __riscv_vse32_v_u32m8(py, vy, 8);
+    __riscv_vse32_v_u32m8(pz, vz, 8);
+    for (size_t j = 0; j < 8; ++j) {{
+      (*kernel_ptr)({kernel_fn_args_list + ', ' if len(kernel_fn_args)>0 else ''} px[j], py[j], pz[j], gridX, gridY, gridZ);
+    }}
   }}
 }}
 

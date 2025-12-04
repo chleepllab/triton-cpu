@@ -71,14 +71,10 @@ def add_kernel_tiled(x_ptr,  # *Pointer* to first input vector.
     pid = tl.program_id(axis=0)
     block_start = pid * BLOCK_SIZE
     for i in range(0, tl.cdiv(BLOCK_SIZE, TILE_SIZE)):
-        offsets = block_start + i + 128 * tl.arange(0, TILE_SIZE)
+        offsets = block_start + i * TILE_SIZE + tl.arange(0, TILE_SIZE)
         mask = offsets < n_elements
         x = tl.load(x_ptr + offsets, mask=mask)
         y = tl.load(y_ptr + offsets, mask=mask)
-        #a = block_start + tl.arange(0, TILE_SIZE)
-        #b = 100 + block_start + tl.arange(0, TILE_SIZE)
-        #c = a + b
-        #output = x + y + c
         output = x + y
         tl.store(output_ptr + offsets, output, mask=mask)
 
@@ -149,10 +145,10 @@ def add_tiled(x: torch.Tensor.int, y: torch.Tensor.int, output):
         output = torch.empty_like(x)
     n_elements = output.numel()
     grid = lambda meta: (triton.cdiv(n_elements, meta['BLOCK_SIZE']), )
-    try:
-        add_kernel_tiled[grid](x, y, output, n_elements, BLOCK_SIZE=CPU_BLOCK_SIZE, TILE_SIZE=32)
-    except:
-        pass
+    #try:
+    add_kernel_tiled[grid](x, y, output, n_elements, BLOCK_SIZE=CPU_BLOCK_SIZE, TILE_SIZE=32)
+    #except:
+    #    pass
     return output
 
 
