@@ -1,0 +1,746 @@
+
+/home/chlee/.triton/cache/OZ3YPTP7FBHPHDUYE3BOPZU7AQ/__triton_cpu_launcher.so:     file format elf64-littleriscv
+
+
+Disassembly of section .text:
+
+0000000000001e84 <deregister_tm_clones>:
+    1e84:	00003517          	auipc	a0,0x3
+    1e88:	a3450513          	add	a0,a0,-1484 # 48b8 <__TMC_END__>
+    1e8c:	00003797          	auipc	a5,0x3
+    1e90:	a2c78793          	add	a5,a5,-1492 # 48b8 <__TMC_END__>
+    1e94:	00a78863          	beq	a5,a0,1ea4 <deregister_tm_clones+0x20>
+    1e98:	00002797          	auipc	a5,0x2
+    1e9c:	9407b783          	ld	a5,-1728(a5) # 37d8 <_ITM_deregisterTMCloneTable@Base>
+    1ea0:	c391                	beqz	a5,1ea4 <deregister_tm_clones+0x20>
+    1ea2:	8782                	jr	a5
+    1ea4:	8082                	ret
+
+0000000000001ea6 <register_tm_clones>:
+    1ea6:	00003517          	auipc	a0,0x3
+    1eaa:	a1250513          	add	a0,a0,-1518 # 48b8 <__TMC_END__>
+    1eae:	00003597          	auipc	a1,0x3
+    1eb2:	a0a58593          	add	a1,a1,-1526 # 48b8 <__TMC_END__>
+    1eb6:	8d89                	sub	a1,a1,a0
+    1eb8:	4035d793          	sra	a5,a1,0x3
+    1ebc:	91fd                	srl	a1,a1,0x3f
+    1ebe:	95be                	add	a1,a1,a5
+    1ec0:	8585                	sra	a1,a1,0x1
+    1ec2:	c599                	beqz	a1,1ed0 <register_tm_clones+0x2a>
+    1ec4:	00002797          	auipc	a5,0x2
+    1ec8:	91c7b783          	ld	a5,-1764(a5) # 37e0 <_ITM_registerTMCloneTable@Base>
+    1ecc:	c391                	beqz	a5,1ed0 <register_tm_clones+0x2a>
+    1ece:	8782                	jr	a5
+    1ed0:	8082                	ret
+
+0000000000001ed2 <__do_global_dtors_aux>:
+    1ed2:	1141                	add	sp,sp,-16
+    1ed4:	e022                	sd	s0,0(sp)
+    1ed6:	00003417          	auipc	s0,0x3
+    1eda:	a8a40413          	add	s0,s0,-1398 # 4960 <completed.0>
+    1ede:	00044783          	lbu	a5,0(s0)
+    1ee2:	e406                	sd	ra,8(sp)
+    1ee4:	e385                	bnez	a5,1f04 <__do_global_dtors_aux+0x32>
+    1ee6:	00002797          	auipc	a5,0x2
+    1eea:	9027b783          	ld	a5,-1790(a5) # 37e8 <__cxa_finalize@GLIBC_2.27>
+    1eee:	c791                	beqz	a5,1efa <__do_global_dtors_aux+0x28>
+    1ef0:	00003517          	auipc	a0,0x3
+    1ef4:	91053503          	ld	a0,-1776(a0) # 4800 <__dso_handle>
+    1ef8:	9782                	jalr	a5
+    1efa:	f8bff0ef          	jal	1e84 <deregister_tm_clones>
+    1efe:	4785                	li	a5,1
+    1f00:	00f40023          	sb	a5,0(s0)
+    1f04:	60a2                	ld	ra,8(sp)
+    1f06:	6402                	ld	s0,0(sp)
+    1f08:	0141                	add	sp,sp,16
+    1f0a:	8082                	ret
+
+0000000000001f0c <frame_dummy>:
+    1f0c:	bf69                	j	1ea6 <register_tm_clones>
+
+0000000000001f0e <PyInit___triton_cpu_launcher>:
+    1f0e:	1141                	add	sp,sp,-16
+    1f10:	e406                	sd	ra,8(sp)
+    1f12:	e022                	sd	s0,0(sp)
+    1f14:	00003517          	auipc	a0,0x3
+    1f18:	93450513          	add	a0,a0,-1740 # 4848 <_ZL9ModuleDef>
+    1f1c:	3f500593          	li	a1,1013
+    1f20:	5e0000ef          	jal	2500 <PyModule_Create2@plt>
+    1f24:	c909                	beqz	a0,1f36 <PyInit___triton_cpu_launcher+0x28>
+    1f26:	00003597          	auipc	a1,0x3
+    1f2a:	8e258593          	add	a1,a1,-1822 # 4808 <_ZL13ModuleMethods>
+    1f2e:	842a                	mv	s0,a0
+    1f30:	5e0000ef          	jal	2510 <PyModule_AddFunctions@plt>
+    1f34:	8522                	mv	a0,s0
+    1f36:	60a2                	ld	ra,8(sp)
+    1f38:	6402                	ld	s0,0(sp)
+    1f3a:	0141                	add	sp,sp,16
+    1f3c:	8082                	ret
+
+0000000000001f3e <_ZL6launchP7_objectS0_>:
+    1f3e:	7121                	add	sp,sp,-448
+    1f40:	ff06                	sd	ra,440(sp)
+    1f42:	fb22                	sd	s0,432(sp)
+    1f44:	f726                	sd	s1,424(sp)
+    1f46:	f34a                	sd	s2,416(sp)
+    1f48:	ef4e                	sd	s3,408(sp)
+    1f4a:	eb52                	sd	s4,400(sp)
+    1f4c:	e756                	sd	s5,392(sp)
+    1f4e:	e35a                	sd	s6,384(sp)
+    1f50:	fede                	sd	s7,376(sp)
+    1f52:	fae2                	sd	s8,368(sp)
+    1f54:	f6e6                	sd	s9,360(sp)
+    1f56:	f2ea                	sd	s10,352(sp)
+    1f58:	eeee                	sd	s11,344(sp)
+    1f5a:	852e                	mv	a0,a1
+    1f5c:	e582                	sd	zero,200(sp)
+    1f5e:	e182                	sd	zero,192(sp)
+    1f60:	fd02                	sd	zero,184(sp)
+    1f62:	f902                	sd	zero,176(sp)
+    1f64:	07010813          	add	a6,sp,112
+    1f68:	07810893          	add	a7,sp,120
+    1f6c:	08410293          	add	t0,sp,132
+    1f70:	0124                	add	s1,sp,136
+    1f72:	0900                	add	s0,sp,144
+    1f74:	09810313          	add	t1,sp,152
+    1f78:	0c010393          	add	t2,sp,192
+    1f7c:	0c810e13          	add	t3,sp,200
+    1f80:	0b010e93          	add	t4,sp,176
+    1f84:	fffff597          	auipc	a1,0xfffff
+    1f88:	09f0                	add	a2,sp,220
+    1f8a:	09b4                	add	a3,sp,216
+    1f8c:	09d8                	add	a4,sp,212
+    1f8e:	113c                	add	a5,sp,168
+    1f90:	e0c2                	sd	a6,64(sp)
+    1f92:	0a010813          	add	a6,sp,160
+    1f96:	f022                	sd	s0,32(sp)
+    1f98:	f426                	sd	s1,40(sp)
+    1f9a:	f816                	sd	t0,48(sp)
+    1f9c:	fc46                	sd	a7,56(sp)
+    1f9e:	0b810893          	add	a7,sp,184
+    1fa2:	c6958593          	add	a1,a1,-919 # bed <GCC_except_table1+0x85>
+    1fa6:	e076                	sd	t4,0(sp)
+    1fa8:	e472                	sd	t3,8(sp)
+    1faa:	e81e                	sd	t2,16(sp)
+    1fac:	ec1a                	sd	t1,24(sp)
+    1fae:	572000ef          	jal	2520 <PyArg_ParseTuple@plt>
+    1fb2:	38050463          	beqz	a0,233a <_ZL6launchP7_objectS0_+0x3fc>
+    1fb6:	752a                	ld	a0,168(sp)
+    1fb8:	578000ef          	jal	2530 <PyLong_AsVoidPtr@plt>
+    1fbc:	7c0a                	ld	s8,160(sp)
+    1fbe:	756a                	ld	a0,184(sp)
+    1fc0:	fffff597          	auipc	a1,0xfffff
+    1fc4:	c7858593          	add	a1,a1,-904 # c38 <GCC_except_table1+0xd0>
+    1fc8:	578000ef          	jal	2540 <PyObject_GetAttrString@plt>
+    1fcc:	c901                	beqz	a0,1fdc <_ZL6launchP7_objectS0_+0x9e>
+    1fce:	650c                	ld	a1,8(a0)
+    1fd0:	0ab5c583          	lbu	a1,171(a1)
+    1fd4:	8985                	and	a1,a1,1
+    1fd6:	c199                	beqz	a1,1fdc <_ZL6launchP7_objectS0_+0x9e>
+    1fd8:	578000ef          	jal	2550 <PyLong_AsLong@plt>
+    1fdc:	652e                	ld	a0,200(sp)
+    1fde:	00002597          	auipc	a1,0x2
+    1fe2:	8125b483          	ld	s1,-2030(a1) # 37f0 <_Py_NoneStruct@Base>
+    1fe6:	02950963          	beq	a0,s1,2018 <_ZL6launchP7_objectS0_+0xda>
+    1fea:	75ca                	ld	a1,176(sp)
+    1fec:	fffff517          	auipc	a0,0xfffff
+    1ff0:	c4850513          	add	a0,a0,-952 # c34 <GCC_except_table1+0xcc>
+    1ff4:	56c000ef          	jal	2560 <Py_BuildValue@plt>
+    1ff8:	65ae                	ld	a1,200(sp)
+    1ffa:	842a                	mv	s0,a0
+    1ffc:	852e                	mv	a0,a1
+    1ffe:	85a2                	mv	a1,s0
+    2000:	570000ef          	jal	2570 <PyObject_CallObject@plt>
+    2004:	600c                	ld	a1,0(s0)
+    2006:	02059613          	sll	a2,a1,0x20
+    200a:	00064563          	bltz	a2,2014 <_ZL6launchP7_objectS0_+0xd6>
+    200e:	15fd                	add	a1,a1,-1
+    2010:	e00c                	sd	a1,0(s0)
+    2012:	c1a5                	beqz	a1,2072 <_ZL6launchP7_objectS0_+0x134>
+    2014:	32050363          	beqz	a0,233a <_ZL6launchP7_objectS0_+0x3fc>
+    2018:	656a                	ld	a0,152(sp)
+    201a:	38c000ef          	jal	23a6 <_ZL10getPointerP7_objecti>
+    201e:	8985                	and	a1,a1,1
+    2020:	30058d63          	beqz	a1,233a <_ZL6launchP7_objectS0_+0x3fc>
+    2024:	8b2a                	mv	s6,a0
+    2026:	654a                	ld	a0,144(sp)
+    2028:	37e000ef          	jal	23a6 <_ZL10getPointerP7_objecti>
+    202c:	8985                	and	a1,a1,1
+    202e:	30058663          	beqz	a1,233a <_ZL6launchP7_objectS0_+0x3fc>
+    2032:	8aaa                	mv	s5,a0
+    2034:	652a                	ld	a0,136(sp)
+    2036:	370000ef          	jal	23a6 <_ZL10getPointerP7_objecti>
+    203a:	8985                	and	a1,a1,1
+    203c:	2e058f63          	beqz	a1,233a <_ZL6launchP7_objectS0_+0x3fc>
+    2040:	89aa                	mv	s3,a0
+    2042:	0dc16b83          	lwu	s7,220(sp)
+    2046:	4dee                	lw	s11,216(sp)
+    2048:	4cde                	lw	s9,212(sp)
+    204a:	4a1a                	lw	s4,132(sp)
+    204c:	037d8533          	mul	a0,s11,s7
+    2050:	0395093b          	mulw	s2,a0,s9
+    2054:	4505                	li	a0,1
+    2056:	02a91563          	bne	s2,a0,2080 <_ZL6launchP7_objectS0_+0x142>
+    205a:	4885                	li	a7,1
+    205c:	e02a                	sd	a0,0(sp)
+    205e:	e42a                	sd	a0,8(sp)
+    2060:	855a                	mv	a0,s6
+    2062:	85d6                	mv	a1,s5
+    2064:	864e                	mv	a2,s3
+    2066:	86d2                	mv	a3,s4
+    2068:	4701                	li	a4,0
+    206a:	4781                	li	a5,0
+    206c:	4801                	li	a6,0
+    206e:	9c02                	jalr	s8
+    2070:	a461                	j	22f8 <_ZL6launchP7_objectS0_+0x3ba>
+    2072:	892a                	mv	s2,a0
+    2074:	8522                	mv	a0,s0
+    2076:	50a000ef          	jal	2580 <_Py_Dealloc@plt>
+    207a:	f8091fe3          	bnez	s2,2018 <_ZL6launchP7_objectS0_+0xda>
+    207e:	ac75                	j	233a <_ZL6launchP7_objectS0_+0x3fc>
+    2080:	e8e2                	sd	s8,80(sp)
+    2082:	02091513          	sll	a0,s2,0x20
+    2086:	cd817057          	.insn	4, 0xcd817057
+    208a:	5e003457          	.insn	4, 0x5e003457
+    208e:	028c                	add	a1,sp,320
+    2090:	9101                	srl	a0,a0,0x20
+    2092:	0205f427          	.insn	4, 0x0205f427
+    2096:	ea82                	sd	zero,336(sp)
+    2098:	e4aa                	sd	a0,72(sp)
+    209a:	00251413          	sll	s0,a0,0x2
+    209e:	8522                	mv	a0,s0
+    20a0:	4f0000ef          	jal	2590 <_Znam@plt>
+    20a4:	8c2a                	mv	s8,a0
+    20a6:	4581                	li	a1,0
+    20a8:	8622                	mv	a2,s0
+    20aa:	4f6000ef          	jal	25a0 <memset@plt>
+    20ae:	e2e2                	sd	s8,320(sp)
+    20b0:	8522                	mv	a0,s0
+    20b2:	4de000ef          	jal	2590 <_Znam@plt>
+    20b6:	8d2a                	mv	s10,a0
+    20b8:	f4ca                	sd	s2,104(sp)
+    20ba:	eca6                	sd	s1,88(sp)
+    20bc:	4581                	li	a1,0
+    20be:	8622                	mv	a2,s0
+    20c0:	4e0000ef          	jal	25a0 <memset@plt>
+    20c4:	e6ea                	sd	s10,328(sp)
+    20c6:	f0a2                	sd	s0,96(sp)
+    20c8:	8522                	mv	a0,s0
+    20ca:	4c6000ef          	jal	2590 <_Znam@plt>
+    20ce:	84aa                	mv	s1,a0
+    20d0:	000b891b          	sext.w	s2,s7
+    20d4:	4581                	li	a1,0
+    20d6:	7606                	ld	a2,96(sp)
+    20d8:	4c8000ef          	jal	25a0 <memset@plt>
+    20dc:	eaa6                	sd	s1,336(sp)
+    20de:	0e090363          	beqz	s2,21c4 <_ZL6launchP7_objectS0_+0x286>
+    20e2:	0e0d8163          	beqz	s11,21c4 <_ZL6launchP7_objectS0_+0x286>
+    20e6:	0c0c8f63          	beqz	s9,21c4 <_ZL6launchP7_objectS0_+0x286>
+    20ea:	c22025f3          	csrr	a1,vlenb
+    20ee:	0015df13          	srl	t5,a1,0x1
+    20f2:	46a1                	li	a3,8
+    20f4:	fffb8613          	add	a2,s7,-1
+    20f8:	8efa                	mv	t4,t5
+    20fa:	01e6e363          	bltu	a3,t5,2100 <_ZL6launchP7_objectS0_+0x1c2>
+    20fe:	4ea1                	li	t4,8
+    2100:	4881                	li	a7,0
+    2102:	4681                	li	a3,0
+    2104:	032d8833          	mul	a6,s11,s2
+    2108:	0006031b          	sext.w	t1,a2
+    210c:	02065293          	srl	t0,a2,0x20
+    2110:	818d                	srl	a1,a1,0x3
+    2112:	058a                	sll	a1,a1,0x2
+    2114:	40b005b3          	neg	a1,a1
+    2118:	0175fe33          	and	t3,a1,s7
+    211c:	0d1075d7          	.insn	4, 0x0d1075d7
+    2120:	5208a457          	.insn	4, 0x5208a457
+    2124:	a029                	j	212e <_ZL6launchP7_objectS0_+0x1f0>
+    2126:	2685                	addw	a3,a3,1
+    2128:	98c2                	add	a7,a7,a6
+    212a:	09968d63          	beq	a3,s9,21c4 <_ZL6launchP7_objectS0_+0x286>
+    212e:	4701                	li	a4,0
+    2130:	02d803b3          	mul	t2,a6,a3
+    2134:	5e06c557          	.insn	4, 0x5e06c557
+    2138:	87c6                	mv	a5,a7
+    213a:	a029                	j	2144 <_ZL6launchP7_objectS0_+0x206>
+    213c:	2705                	addw	a4,a4,1
+    213e:	97ca                	add	a5,a5,s2
+    2140:	ffb703e3          	beq	a4,s11,2126 <_ZL6launchP7_objectS0_+0x1e8>
+    2144:	03dbf663          	bgeu	s7,t4,2170 <_ZL6launchP7_objectS0_+0x232>
+    2148:	4601                	li	a2,0
+    214a:	40cb85b3          	sub	a1,s7,a2
+    214e:	00c78533          	add	a0,a5,a2
+    2152:	15fd                	add	a1,a1,-1
+    2154:	1502                	sll	a0,a0,0x20
+    2156:	01e55413          	srl	s0,a0,0x1e
+    215a:	008c0533          	add	a0,s8,s0
+    215e:	c110                	sw	a2,0(a0)
+    2160:	008d0533          	add	a0,s10,s0
+    2164:	9426                	add	s0,s0,s1
+    2166:	c118                	sw	a4,0(a0)
+    2168:	c014                	sw	a3,0(s0)
+    216a:	0605                	add	a2,a2,1
+    216c:	f1ed                	bnez	a1,214e <_ZL6launchP7_objectS0_+0x210>
+    216e:	b7f9                	j	213c <_ZL6launchP7_objectS0_+0x1fe>
+    2170:	02e905b3          	mul	a1,s2,a4
+    2174:	00b385bb          	addw	a1,t2,a1
+    2178:	fff5c593          	not	a1,a1
+    217c:	4601                	li	a2,0
+    217e:	fc65e6e3          	bltu	a1,t1,214a <_ZL6launchP7_objectS0_+0x20c>
+    2182:	fc0294e3          	bnez	t0,214a <_ZL6launchP7_objectS0_+0x20c>
+    2186:	5e074657          	.insn	4, 0x5e074657
+    218a:	863e                	mv	a2,a5
+    218c:	85f2                	mv	a1,t3
+    218e:	9e80b757          	.insn	4, 0x9e80b757
+    2192:	02061513          	sll	a0,a2,0x20
+    2196:	41e585b3          	sub	a1,a1,t5
+    219a:	01e55413          	srl	s0,a0,0x1e
+    219e:	008c0533          	add	a0,s8,s0
+    21a2:	22850727          	.insn	4, 0x22850727
+    21a6:	008d0533          	add	a0,s10,s0
+    21aa:	9426                	add	s0,s0,s1
+    21ac:	22850627          	.insn	4, 0x22850627
+    21b0:	22840527          	.insn	4, 0x22840527
+    21b4:	02ef4757          	.insn	4, 0x02ef4757
+    21b8:	967a                	add	a2,a2,t5
+    21ba:	fde1                	bnez	a1,2192 <_ZL6launchP7_objectS0_+0x254>
+    21bc:	8672                	mv	a2,t3
+    21be:	f77e0fe3          	beq	t3,s7,213c <_ZL6launchP7_objectS0_+0x1fe>
+    21c2:	b761                	j	214a <_ZL6launchP7_objectS0_+0x20c>
+    21c4:	7526                	ld	a0,104(sp)
+    21c6:	10050d63          	beqz	a0,22e0 <_ZL6launchP7_objectS0_+0x3a2>
+    21ca:	4401                	li	s0,0
+    21cc:	4b81                	li	s7,0
+    21ce:	0e010c13          	add	s8,sp,224
+    21d2:	64c6                	ld	s1,80(sp)
+    21d4:	6d26                	ld	s10,72(sp)
+    21d6:	6516                	ld	a0,320(sp)
+    21d8:	65b6                	ld	a1,328(sp)
+    21da:	6656                	ld	a2,336(sp)
+    21dc:	9522                	add	a0,a0,s0
+    21de:	95a2                	add	a1,a1,s0
+    21e0:	9622                	add	a2,a2,s0
+    21e2:	cd347057          	.insn	4, 0xcd347057
+    21e6:	02056407          	.insn	4, 0x02056407
+    21ea:	0205e807          	.insn	4, 0x0205e807
+    21ee:	02066c07          	.insn	4, 0x02066c07
+    21f2:	1208                	add	a0,sp,288
+    21f4:	02056427          	.insn	4, 0x02056427
+    21f8:	0208                	add	a0,sp,256
+    21fa:	02056827          	.insn	4, 0x02056827
+    21fe:	020c6c27          	.insn	4, 0x020c6c27
+    2202:	12012703          	lw	a4,288(sp)
+    2206:	10012783          	lw	a5,256(sp)
+    220a:	580e                	lw	a6,224(sp)
+    220c:	e06e                	sd	s11,0(sp)
+    220e:	e466                	sd	s9,8(sp)
+    2210:	855a                	mv	a0,s6
+    2212:	85d6                	mv	a1,s5
+    2214:	864e                	mv	a2,s3
+    2216:	86d2                	mv	a3,s4
+    2218:	88ca                	mv	a7,s2
+    221a:	9482                	jalr	s1
+    221c:	12412703          	lw	a4,292(sp)
+    2220:	10412783          	lw	a5,260(sp)
+    2224:	581e                	lw	a6,228(sp)
+    2226:	e06e                	sd	s11,0(sp)
+    2228:	e466                	sd	s9,8(sp)
+    222a:	855a                	mv	a0,s6
+    222c:	85d6                	mv	a1,s5
+    222e:	864e                	mv	a2,s3
+    2230:	86d2                	mv	a3,s4
+    2232:	88ca                	mv	a7,s2
+    2234:	9482                	jalr	s1
+    2236:	12812703          	lw	a4,296(sp)
+    223a:	10812783          	lw	a5,264(sp)
+    223e:	582e                	lw	a6,232(sp)
+    2240:	e06e                	sd	s11,0(sp)
+    2242:	e466                	sd	s9,8(sp)
+    2244:	855a                	mv	a0,s6
+    2246:	85d6                	mv	a1,s5
+    2248:	864e                	mv	a2,s3
+    224a:	86d2                	mv	a3,s4
+    224c:	88ca                	mv	a7,s2
+    224e:	9482                	jalr	s1
+    2250:	12c12703          	lw	a4,300(sp)
+    2254:	10c12783          	lw	a5,268(sp)
+    2258:	583e                	lw	a6,236(sp)
+    225a:	e06e                	sd	s11,0(sp)
+    225c:	e466                	sd	s9,8(sp)
+    225e:	855a                	mv	a0,s6
+    2260:	85d6                	mv	a1,s5
+    2262:	864e                	mv	a2,s3
+    2264:	86d2                	mv	a3,s4
+    2266:	88ca                	mv	a7,s2
+    2268:	9482                	jalr	s1
+    226a:	13012703          	lw	a4,304(sp)
+    226e:	11012783          	lw	a5,272(sp)
+    2272:	584e                	lw	a6,240(sp)
+    2274:	e06e                	sd	s11,0(sp)
+    2276:	e466                	sd	s9,8(sp)
+    2278:	855a                	mv	a0,s6
+    227a:	85d6                	mv	a1,s5
+    227c:	864e                	mv	a2,s3
+    227e:	86d2                	mv	a3,s4
+    2280:	88ca                	mv	a7,s2
+    2282:	9482                	jalr	s1
+    2284:	13412703          	lw	a4,308(sp)
+    2288:	11412783          	lw	a5,276(sp)
+    228c:	585e                	lw	a6,244(sp)
+    228e:	e06e                	sd	s11,0(sp)
+    2290:	e466                	sd	s9,8(sp)
+    2292:	855a                	mv	a0,s6
+    2294:	85d6                	mv	a1,s5
+    2296:	864e                	mv	a2,s3
+    2298:	86d2                	mv	a3,s4
+    229a:	88ca                	mv	a7,s2
+    229c:	9482                	jalr	s1
+    229e:	13812703          	lw	a4,312(sp)
+    22a2:	11812783          	lw	a5,280(sp)
+    22a6:	586e                	lw	a6,248(sp)
+    22a8:	e06e                	sd	s11,0(sp)
+    22aa:	e466                	sd	s9,8(sp)
+    22ac:	855a                	mv	a0,s6
+    22ae:	85d6                	mv	a1,s5
+    22b0:	864e                	mv	a2,s3
+    22b2:	86d2                	mv	a3,s4
+    22b4:	88ca                	mv	a7,s2
+    22b6:	9482                	jalr	s1
+    22b8:	13c12703          	lw	a4,316(sp)
+    22bc:	11c12783          	lw	a5,284(sp)
+    22c0:	587e                	lw	a6,252(sp)
+    22c2:	e06e                	sd	s11,0(sp)
+    22c4:	e466                	sd	s9,8(sp)
+    22c6:	855a                	mv	a0,s6
+    22c8:	85d6                	mv	a1,s5
+    22ca:	864e                	mv	a2,s3
+    22cc:	86d2                	mv	a3,s4
+    22ce:	88ca                	mv	a7,s2
+    22d0:	9482                	jalr	s1
+    22d2:	0ba1                	add	s7,s7,8
+    22d4:	02040413          	add	s0,s0,32
+    22d8:	efabefe3          	bltu	s7,s10,21d6 <_ZL6launchP7_objectS0_+0x298>
+    22dc:	64d6                	ld	s1,336(sp)
+    22de:	c481                	beqz	s1,22e6 <_ZL6launchP7_objectS0_+0x3a8>
+    22e0:	8526                	mv	a0,s1
+    22e2:	2ce000ef          	jal	25b0 <_ZdaPv@plt>
+    22e6:	6536                	ld	a0,328(sp)
+    22e8:	c119                	beqz	a0,22ee <_ZL6launchP7_objectS0_+0x3b0>
+    22ea:	2c6000ef          	jal	25b0 <_ZdaPv@plt>
+    22ee:	6516                	ld	a0,320(sp)
+    22f0:	64e6                	ld	s1,88(sp)
+    22f2:	c119                	beqz	a0,22f8 <_ZL6launchP7_objectS0_+0x3ba>
+    22f4:	2bc000ef          	jal	25b0 <_ZdaPv@plt>
+    22f8:	650e                	ld	a0,192(sp)
+    22fa:	02950d63          	beq	a0,s1,2334 <_ZL6launchP7_objectS0_+0x3f6>
+    22fe:	75ca                	ld	a1,176(sp)
+    2300:	fffff517          	auipc	a0,0xfffff
+    2304:	93450513          	add	a0,a0,-1740 # c34 <GCC_except_table1+0xcc>
+    2308:	258000ef          	jal	2560 <Py_BuildValue@plt>
+    230c:	658e                	ld	a1,192(sp)
+    230e:	842a                	mv	s0,a0
+    2310:	852e                	mv	a0,a1
+    2312:	85a2                	mv	a1,s0
+    2314:	25c000ef          	jal	2570 <PyObject_CallObject@plt>
+    2318:	600c                	ld	a1,0(s0)
+    231a:	02059613          	sll	a2,a1,0x20
+    231e:	00064a63          	bltz	a2,2332 <_ZL6launchP7_objectS0_+0x3f4>
+    2322:	15fd                	add	a1,a1,-1
+    2324:	e00c                	sd	a1,0(s0)
+    2326:	e591                	bnez	a1,2332 <_ZL6launchP7_objectS0_+0x3f4>
+    2328:	892a                	mv	s2,a0
+    232a:	8522                	mv	a0,s0
+    232c:	254000ef          	jal	2580 <_Py_Dealloc@plt>
+    2330:	854a                	mv	a0,s2
+    2332:	c501                	beqz	a0,233a <_ZL6launchP7_objectS0_+0x3fc>
+    2334:	28c000ef          	jal	25c0 <PyErr_Occurred@plt>
+    2338:	c115                	beqz	a0,235c <_ZL6launchP7_objectS0_+0x41e>
+    233a:	4481                	li	s1,0
+    233c:	8526                	mv	a0,s1
+    233e:	70fa                	ld	ra,440(sp)
+    2340:	745a                	ld	s0,432(sp)
+    2342:	74ba                	ld	s1,424(sp)
+    2344:	791a                	ld	s2,416(sp)
+    2346:	69fa                	ld	s3,408(sp)
+    2348:	6a5a                	ld	s4,400(sp)
+    234a:	6aba                	ld	s5,392(sp)
+    234c:	6b1a                	ld	s6,384(sp)
+    234e:	7bf6                	ld	s7,376(sp)
+    2350:	7c56                	ld	s8,368(sp)
+    2352:	7cb6                	ld	s9,360(sp)
+    2354:	7d16                	ld	s10,352(sp)
+    2356:	6df6                	ld	s11,344(sp)
+    2358:	6139                	add	sp,sp,448
+    235a:	8082                	ret
+    235c:	4088                	lw	a0,0(s1)
+    235e:	2505                	addw	a0,a0,1
+    2360:	dd71                	beqz	a0,233c <_ZL6launchP7_objectS0_+0x3fe>
+    2362:	00001597          	auipc	a1,0x1
+    2366:	48e5b483          	ld	s1,1166(a1) # 37f0 <_Py_NoneStruct@Base>
+    236a:	c088                	sw	a0,0(s1)
+    236c:	bfc1                	j	233c <_ZL6launchP7_objectS0_+0x3fe>
+    236e:	842a                	mv	s0,a0
+    2370:	0288                	add	a0,sp,320
+    2372:	25e000ef          	jal	25d0 <_ZN5GridsD2Ev@plt>
+    2376:	8522                	mv	a0,s0
+    2378:	268000ef          	jal	25e0 <_Unwind_Resume@plt>
+    237c:	842a                	mv	s0,a0
+    237e:	0288                	add	a0,sp,320
+    2380:	250000ef          	jal	25d0 <_ZN5GridsD2Ev@plt>
+    2384:	8522                	mv	a0,s0
+    2386:	25a000ef          	jal	25e0 <_Unwind_Resume@plt>
+    238a:	842a                	mv	s0,a0
+    238c:	0288                	add	a0,sp,320
+    238e:	242000ef          	jal	25d0 <_ZN5GridsD2Ev@plt>
+    2392:	8522                	mv	a0,s0
+    2394:	24c000ef          	jal	25e0 <_Unwind_Resume@plt>
+    2398:	842a                	mv	s0,a0
+    239a:	0288                	add	a0,sp,320
+    239c:	234000ef          	jal	25d0 <_ZN5GridsD2Ev@plt>
+    23a0:	8522                	mv	a0,s0
+    23a2:	23e000ef          	jal	25e0 <_Unwind_Resume@plt>
+
+00000000000023a6 <_ZL10getPointerP7_objecti>:
+    23a6:	7179                	add	sp,sp,-48
+    23a8:	f406                	sd	ra,40(sp)
+    23aa:	f022                	sd	s0,32(sp)
+    23ac:	ec26                	sd	s1,24(sp)
+    23ae:	e84a                	sd	s2,16(sp)
+    23b0:	e44e                	sd	s3,8(sp)
+    23b2:	650c                	ld	a1,8(a0)
+    23b4:	0ab5c583          	lbu	a1,171(a1)
+    23b8:	8985                	and	a1,a1,1
+    23ba:	edad                	bnez	a1,2434 <_ZL10getPointerP7_objecti+0x8e>
+    23bc:	00001597          	auipc	a1,0x1
+    23c0:	4345b583          	ld	a1,1076(a1) # 37f0 <_Py_NoneStruct@Base>
+    23c4:	06b50c63          	beq	a0,a1,243c <_ZL10getPointerP7_objecti+0x96>
+    23c8:	fffff597          	auipc	a1,0xfffff
+    23cc:	81c58593          	add	a1,a1,-2020 # be4 <GCC_except_table1+0x7c>
+    23d0:	170000ef          	jal	2540 <PyObject_GetAttrString@plt>
+    23d4:	c53d                	beqz	a0,2442 <_ZL10getPointerP7_objecti+0x9c>
+    23d6:	84aa                	mv	s1,a0
+    23d8:	4985                	li	s3,1
+    23da:	09fe                	sll	s3,s3,0x1f
+    23dc:	4501                	li	a0,0
+    23de:	212000ef          	jal	25f0 <PyTuple_New@plt>
+    23e2:	842a                	mv	s0,a0
+    23e4:	8526                	mv	a0,s1
+    23e6:	85a2                	mv	a1,s0
+    23e8:	4601                	li	a2,0
+    23ea:	216000ef          	jal	2600 <PyObject_Call@plt>
+    23ee:	600c                	ld	a1,0(s0)
+    23f0:	02059613          	sll	a2,a1,0x20
+    23f4:	892a                	mv	s2,a0
+    23f6:	00064863          	bltz	a2,2406 <_ZL10getPointerP7_objecti+0x60>
+    23fa:	15fd                	add	a1,a1,-1
+    23fc:	e00c                	sd	a1,0(s0)
+    23fe:	e581                	bnez	a1,2406 <_ZL10getPointerP7_objecti+0x60>
+    2400:	8522                	mv	a0,s0
+    2402:	17e000ef          	jal	2580 <_Py_Dealloc@plt>
+    2406:	6088                	ld	a0,0(s1)
+    2408:	013575b3          	and	a1,a0,s3
+    240c:	e581                	bnez	a1,2414 <_ZL10getPointerP7_objecti+0x6e>
+    240e:	157d                	add	a0,a0,-1
+    2410:	e088                	sd	a0,0(s1)
+    2412:	cd21                	beqz	a0,246a <_ZL10getPointerP7_objecti+0xc4>
+    2414:	00893503          	ld	a0,8(s2)
+    2418:	0ab54503          	lbu	a0,171(a0)
+    241c:	8905                	and	a0,a0,1
+    241e:	ed39                	bnez	a0,247c <_ZL10getPointerP7_objecti+0xd6>
+    2420:	00001517          	auipc	a0,0x1
+    2424:	3d853503          	ld	a0,984(a0) # 37f8 <PyExc_TypeError@Base>
+    2428:	6108                	ld	a0,0(a0)
+    242a:	fffff597          	auipc	a1,0xfffff
+    242e:	86f58593          	add	a1,a1,-1937 # c99 <GCC_except_table1+0x131>
+    2432:	a00d                	j	2454 <_ZL10getPointerP7_objecti+0xae>
+    2434:	1dc000ef          	jal	2610 <PyLong_AsLongLong@plt>
+    2438:	4585                	li	a1,1
+    243a:	a00d                	j	245c <_ZL10getPointerP7_objecti+0xb6>
+    243c:	4501                	li	a0,0
+    243e:	4585                	li	a1,1
+    2440:	a831                	j	245c <_ZL10getPointerP7_objecti+0xb6>
+    2442:	00001517          	auipc	a0,0x1
+    2446:	3b653503          	ld	a0,950(a0) # 37f8 <PyExc_TypeError@Base>
+    244a:	6108                	ld	a0,0(a0)
+    244c:	fffff597          	auipc	a1,0xfffff
+    2450:	80e58593          	add	a1,a1,-2034 # c5a <GCC_except_table1+0xf2>
+    2454:	1cc000ef          	jal	2620 <PyErr_SetString@plt>
+    2458:	4501                	li	a0,0
+    245a:	4581                	li	a1,0
+    245c:	70a2                	ld	ra,40(sp)
+    245e:	7402                	ld	s0,32(sp)
+    2460:	64e2                	ld	s1,24(sp)
+    2462:	6942                	ld	s2,16(sp)
+    2464:	69a2                	ld	s3,8(sp)
+    2466:	6145                	add	sp,sp,48
+    2468:	8082                	ret
+    246a:	8526                	mv	a0,s1
+    246c:	114000ef          	jal	2580 <_Py_Dealloc@plt>
+    2470:	00893503          	ld	a0,8(s2)
+    2474:	0ab54503          	lbu	a0,171(a0)
+    2478:	8905                	and	a0,a0,1
+    247a:	d15d                	beqz	a0,2420 <_ZL10getPointerP7_objecti+0x7a>
+    247c:	854a                	mv	a0,s2
+    247e:	192000ef          	jal	2610 <PyLong_AsLongLong@plt>
+    2482:	4585                	li	a1,1
+    2484:	dd61                	beqz	a0,245c <_ZL10getPointerP7_objecti+0xb6>
+    2486:	00093603          	ld	a2,0(s2)
+    248a:	013676b3          	and	a3,a2,s3
+    248e:	f6f9                	bnez	a3,245c <_ZL10getPointerP7_objecti+0xb6>
+    2490:	167d                	add	a2,a2,-1
+    2492:	00c93023          	sd	a2,0(s2)
+    2496:	f279                	bnez	a2,245c <_ZL10getPointerP7_objecti+0xb6>
+    2498:	842a                	mv	s0,a0
+    249a:	854a                	mv	a0,s2
+    249c:	0e4000ef          	jal	2580 <_Py_Dealloc@plt>
+    24a0:	4585                	li	a1,1
+    24a2:	8522                	mv	a0,s0
+    24a4:	bf65                	j	245c <_ZL10getPointerP7_objecti+0xb6>
+
+00000000000024a6 <_ZN5GridsD2Ev>:
+    24a6:	1141                	add	sp,sp,-16
+    24a8:	e406                	sd	ra,8(sp)
+    24aa:	e022                	sd	s0,0(sp)
+    24ac:	842a                	mv	s0,a0
+    24ae:	6908                	ld	a0,16(a0)
+    24b0:	c119                	beqz	a0,24b6 <_ZN5GridsD2Ev+0x10>
+    24b2:	0fe000ef          	jal	25b0 <_ZdaPv@plt>
+    24b6:	6408                	ld	a0,8(s0)
+    24b8:	00043823          	sd	zero,16(s0)
+    24bc:	c119                	beqz	a0,24c2 <_ZN5GridsD2Ev+0x1c>
+    24be:	0f2000ef          	jal	25b0 <_ZdaPv@plt>
+    24c2:	6008                	ld	a0,0(s0)
+    24c4:	00043423          	sd	zero,8(s0)
+    24c8:	c119                	beqz	a0,24ce <_ZN5GridsD2Ev+0x28>
+    24ca:	0e6000ef          	jal	25b0 <_ZdaPv@plt>
+    24ce:	00043023          	sd	zero,0(s0)
+    24d2:	60a2                	ld	ra,8(sp)
+    24d4:	6402                	ld	s0,0(sp)
+    24d6:	0141                	add	sp,sp,16
+    24d8:	8082                	ret
+
+Disassembly of section .plt:
+
+00000000000024e0 <PyModule_Create2@plt-0x20>:
+    24e0:	00002397          	auipc	t2,0x2
+    24e4:	41c30333          	sub	t1,t1,t3
+    24e8:	3d83be03          	ld	t3,984(t2) # 48b8 <__TMC_END__>
+    24ec:	fd430313          	add	t1,t1,-44
+    24f0:	3d838293          	add	t0,t2,984
+    24f4:	00135313          	srl	t1,t1,0x1
+    24f8:	0082b283          	ld	t0,8(t0)
+    24fc:	000e0067          	jr	t3
+
+0000000000002500 <PyModule_Create2@plt>:
+    2500:	00002e17          	auipc	t3,0x2
+    2504:	3c8e3e03          	ld	t3,968(t3) # 48c8 <PyModule_Create2@Base>
+    2508:	000e0367          	jalr	t1,t3
+    250c:	00000013          	nop
+
+0000000000002510 <PyModule_AddFunctions@plt>:
+    2510:	00002e17          	auipc	t3,0x2
+    2514:	3c0e3e03          	ld	t3,960(t3) # 48d0 <PyModule_AddFunctions@Base>
+    2518:	000e0367          	jalr	t1,t3
+    251c:	00000013          	nop
+
+0000000000002520 <PyArg_ParseTuple@plt>:
+    2520:	00002e17          	auipc	t3,0x2
+    2524:	3b8e3e03          	ld	t3,952(t3) # 48d8 <PyArg_ParseTuple@Base>
+    2528:	000e0367          	jalr	t1,t3
+    252c:	00000013          	nop
+
+0000000000002530 <PyLong_AsVoidPtr@plt>:
+    2530:	00002e17          	auipc	t3,0x2
+    2534:	3b0e3e03          	ld	t3,944(t3) # 48e0 <PyLong_AsVoidPtr@Base>
+    2538:	000e0367          	jalr	t1,t3
+    253c:	00000013          	nop
+
+0000000000002540 <PyObject_GetAttrString@plt>:
+    2540:	00002e17          	auipc	t3,0x2
+    2544:	3a8e3e03          	ld	t3,936(t3) # 48e8 <PyObject_GetAttrString@Base>
+    2548:	000e0367          	jalr	t1,t3
+    254c:	00000013          	nop
+
+0000000000002550 <PyLong_AsLong@plt>:
+    2550:	00002e17          	auipc	t3,0x2
+    2554:	3a0e3e03          	ld	t3,928(t3) # 48f0 <PyLong_AsLong@Base>
+    2558:	000e0367          	jalr	t1,t3
+    255c:	00000013          	nop
+
+0000000000002560 <Py_BuildValue@plt>:
+    2560:	00002e17          	auipc	t3,0x2
+    2564:	398e3e03          	ld	t3,920(t3) # 48f8 <Py_BuildValue@Base>
+    2568:	000e0367          	jalr	t1,t3
+    256c:	00000013          	nop
+
+0000000000002570 <PyObject_CallObject@plt>:
+    2570:	00002e17          	auipc	t3,0x2
+    2574:	390e3e03          	ld	t3,912(t3) # 4900 <PyObject_CallObject@Base>
+    2578:	000e0367          	jalr	t1,t3
+    257c:	00000013          	nop
+
+0000000000002580 <_Py_Dealloc@plt>:
+    2580:	00002e17          	auipc	t3,0x2
+    2584:	388e3e03          	ld	t3,904(t3) # 4908 <_Py_Dealloc@Base>
+    2588:	000e0367          	jalr	t1,t3
+    258c:	00000013          	nop
+
+0000000000002590 <_Znam@plt>:
+    2590:	00002e17          	auipc	t3,0x2
+    2594:	380e3e03          	ld	t3,896(t3) # 4910 <_Znam@GLIBCXX_3.4>
+    2598:	000e0367          	jalr	t1,t3
+    259c:	00000013          	nop
+
+00000000000025a0 <memset@plt>:
+    25a0:	00002e17          	auipc	t3,0x2
+    25a4:	378e3e03          	ld	t3,888(t3) # 4918 <memset@GLIBC_2.27>
+    25a8:	000e0367          	jalr	t1,t3
+    25ac:	00000013          	nop
+
+00000000000025b0 <_ZdaPv@plt>:
+    25b0:	00002e17          	auipc	t3,0x2
+    25b4:	370e3e03          	ld	t3,880(t3) # 4920 <_ZdaPv@GLIBCXX_3.4>
+    25b8:	000e0367          	jalr	t1,t3
+    25bc:	00000013          	nop
+
+00000000000025c0 <PyErr_Occurred@plt>:
+    25c0:	00002e17          	auipc	t3,0x2
+    25c4:	368e3e03          	ld	t3,872(t3) # 4928 <PyErr_Occurred@Base>
+    25c8:	000e0367          	jalr	t1,t3
+    25cc:	00000013          	nop
+
+00000000000025d0 <_ZN5GridsD2Ev@plt>:
+    25d0:	00002e17          	auipc	t3,0x2
+    25d4:	360e3e03          	ld	t3,864(t3) # 4930 <_ZN5GridsD2Ev@@Base+0x248a>
+    25d8:	000e0367          	jalr	t1,t3
+    25dc:	00000013          	nop
+
+00000000000025e0 <_Unwind_Resume@plt>:
+    25e0:	00002e17          	auipc	t3,0x2
+    25e4:	358e3e03          	ld	t3,856(t3) # 4938 <_Unwind_Resume@GCC_3.0>
+    25e8:	000e0367          	jalr	t1,t3
+    25ec:	00000013          	nop
+
+00000000000025f0 <PyTuple_New@plt>:
+    25f0:	00002e17          	auipc	t3,0x2
+    25f4:	350e3e03          	ld	t3,848(t3) # 4940 <PyTuple_New@Base>
+    25f8:	000e0367          	jalr	t1,t3
+    25fc:	00000013          	nop
+
+0000000000002600 <PyObject_Call@plt>:
+    2600:	00002e17          	auipc	t3,0x2
+    2604:	348e3e03          	ld	t3,840(t3) # 4948 <PyObject_Call@Base>
+    2608:	000e0367          	jalr	t1,t3
+    260c:	00000013          	nop
+
+0000000000002610 <PyLong_AsLongLong@plt>:
+    2610:	00002e17          	auipc	t3,0x2
+    2614:	340e3e03          	ld	t3,832(t3) # 4950 <PyLong_AsLongLong@Base>
+    2618:	000e0367          	jalr	t1,t3
+    261c:	00000013          	nop
+
+0000000000002620 <PyErr_SetString@plt>:
+    2620:	00002e17          	auipc	t3,0x2
+    2624:	338e3e03          	ld	t3,824(t3) # 4958 <PyErr_SetString@Base>
+    2628:	000e0367          	jalr	t1,t3
+    262c:	00000013          	nop

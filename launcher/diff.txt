@@ -1,0 +1,1294 @@
+Comparison of launcher_origin and launcher_vector
+============================================================
+
+line 1, origin: /home/chlee/.triton/cache/J2UG2DMK6X6YLHR3VD4YCK244U/__triton_cpu_launcher.so:     file format elf64-littleriscv
+line 1, vector: /home/chlee/.triton/cache/OZ3YPTP7FBHPHDUYE3BOPZU7AQ/__triton_cpu_launcher.so:     file format elf64-littleriscv
+
+line 6, origin: 0000000000001da4 <deregister_tm_clones>:
+line 6, vector: 0000000000001e84 <deregister_tm_clones>:
+line 7, origin:     1da4:	00003517          	auipc	a0,0x3
+line 7, vector:     1e84:	00003517          	auipc	a0,0x3
+line 8, origin:     1da8:	8b450513          	add	a0,a0,-1868 # 4658 <__TMC_END__>
+line 8, vector:     1e88:	a3450513          	add	a0,a0,-1484 # 48b8 <__TMC_END__>
+line 9, origin:     1dac:	00003797          	auipc	a5,0x3
+line 9, vector:     1e8c:	00003797          	auipc	a5,0x3
+line 10, origin:     1db0:	8ac78793          	add	a5,a5,-1876 # 4658 <__TMC_END__>
+line 10, vector:     1e90:	a2c78793          	add	a5,a5,-1492 # 48b8 <__TMC_END__>
+line 11, origin:     1db4:	00a78863          	beq	a5,a0,1dc4 <deregister_tm_clones+0x20>
+line 11, vector:     1e94:	00a78863          	beq	a5,a0,1ea4 <deregister_tm_clones+0x20>
+line 12, origin:     1db8:	00001797          	auipc	a5,0x1
+line 12, vector:     1e98:	00002797          	auipc	a5,0x2
+line 13, origin:     1dbc:	7c07b783          	ld	a5,1984(a5) # 3578 <_ITM_deregisterTMCloneTable@Base>
+line 13, vector:     1e9c:	9407b783          	ld	a5,-1728(a5) # 37d8 <_ITM_deregisterTMCloneTable@Base>
+line 14, origin:     1dc0:	c391                	beqz	a5,1dc4 <deregister_tm_clones+0x20>
+line 14, vector:     1ea0:	c391                	beqz	a5,1ea4 <deregister_tm_clones+0x20>
+line 15, origin:     1dc2:	8782                	jr	a5
+line 15, vector:     1ea2:	8782                	jr	a5
+line 16, origin:     1dc4:	8082                	ret
+line 16, vector:     1ea4:	8082                	ret
+
+line 18, origin: 0000000000001dc6 <register_tm_clones>:
+line 18, vector: 0000000000001ea6 <register_tm_clones>:
+line 19, origin:     1dc6:	00003517          	auipc	a0,0x3
+line 19, vector:     1ea6:	00003517          	auipc	a0,0x3
+line 20, origin:     1dca:	89250513          	add	a0,a0,-1902 # 4658 <__TMC_END__>
+line 20, vector:     1eaa:	a1250513          	add	a0,a0,-1518 # 48b8 <__TMC_END__>
+line 21, origin:     1dce:	00003597          	auipc	a1,0x3
+line 21, vector:     1eae:	00003597          	auipc	a1,0x3
+line 22, origin:     1dd2:	88a58593          	add	a1,a1,-1910 # 4658 <__TMC_END__>
+line 22, vector:     1eb2:	a0a58593          	add	a1,a1,-1526 # 48b8 <__TMC_END__>
+line 23, origin:     1dd6:	8d89                	sub	a1,a1,a0
+line 23, vector:     1eb6:	8d89                	sub	a1,a1,a0
+line 24, origin:     1dd8:	4035d793          	sra	a5,a1,0x3
+line 24, vector:     1eb8:	4035d793          	sra	a5,a1,0x3
+line 25, origin:     1ddc:	91fd                	srl	a1,a1,0x3f
+line 25, vector:     1ebc:	91fd                	srl	a1,a1,0x3f
+line 26, origin:     1dde:	95be                	add	a1,a1,a5
+line 26, vector:     1ebe:	95be                	add	a1,a1,a5
+line 27, origin:     1de0:	8585                	sra	a1,a1,0x1
+line 27, vector:     1ec0:	8585                	sra	a1,a1,0x1
+line 28, origin:     1de2:	c599                	beqz	a1,1df0 <register_tm_clones+0x2a>
+line 28, vector:     1ec2:	c599                	beqz	a1,1ed0 <register_tm_clones+0x2a>
+line 29, origin:     1de4:	00001797          	auipc	a5,0x1
+line 29, vector:     1ec4:	00002797          	auipc	a5,0x2
+line 30, origin:     1de8:	79c7b783          	ld	a5,1948(a5) # 3580 <_ITM_registerTMCloneTable@Base>
+line 30, vector:     1ec8:	91c7b783          	ld	a5,-1764(a5) # 37e0 <_ITM_registerTMCloneTable@Base>
+line 31, origin:     1dec:	c391                	beqz	a5,1df0 <register_tm_clones+0x2a>
+line 31, vector:     1ecc:	c391                	beqz	a5,1ed0 <register_tm_clones+0x2a>
+line 32, origin:     1dee:	8782                	jr	a5
+line 32, vector:     1ece:	8782                	jr	a5
+line 33, origin:     1df0:	8082                	ret
+line 33, vector:     1ed0:	8082                	ret
+
+line 35, origin: 0000000000001df2 <__do_global_dtors_aux>:
+line 35, vector: 0000000000001ed2 <__do_global_dtors_aux>:
+line 36, origin:     1df2:	1141                	add	sp,sp,-16
+line 36, vector:     1ed2:	1141                	add	sp,sp,-16
+line 37, origin:     1df4:	e022                	sd	s0,0(sp)
+line 37, vector:     1ed4:	e022                	sd	s0,0(sp)
+line 38, origin:     1df6:	00003417          	auipc	s0,0x3
+line 38, vector:     1ed6:	00003417          	auipc	s0,0x3
+line 39, origin:     1dfa:	8fa40413          	add	s0,s0,-1798 # 46f0 <completed.0>
+line 39, vector:     1eda:	a8a40413          	add	s0,s0,-1398 # 4960 <completed.0>
+line 40, origin:     1dfe:	00044783          	lbu	a5,0(s0)
+line 40, vector:     1ede:	00044783          	lbu	a5,0(s0)
+line 41, origin:     1e02:	e406                	sd	ra,8(sp)
+line 41, vector:     1ee2:	e406                	sd	ra,8(sp)
+line 42, origin:     1e04:	e385                	bnez	a5,1e24 <__do_global_dtors_aux+0x32>
+line 42, vector:     1ee4:	e385                	bnez	a5,1f04 <__do_global_dtors_aux+0x32>
+line 43, origin:     1e06:	00001797          	auipc	a5,0x1
+line 43, vector:     1ee6:	00002797          	auipc	a5,0x2
+line 44, origin:     1e0a:	7827b783          	ld	a5,1922(a5) # 3588 <__cxa_finalize@GLIBC_2.27>
+line 44, vector:     1eea:	9027b783          	ld	a5,-1790(a5) # 37e8 <__cxa_finalize@GLIBC_2.27>
+line 45, origin:     1e0e:	c791                	beqz	a5,1e1a <__do_global_dtors_aux+0x28>
+line 45, vector:     1eee:	c791                	beqz	a5,1efa <__do_global_dtors_aux+0x28>
+line 46, origin:     1e10:	00002517          	auipc	a0,0x2
+line 46, vector:     1ef0:	00003517          	auipc	a0,0x3
+line 47, origin:     1e14:	79053503          	ld	a0,1936(a0) # 45a0 <__dso_handle>
+line 47, vector:     1ef4:	91053503          	ld	a0,-1776(a0) # 4800 <__dso_handle>
+line 48, origin:     1e18:	9782                	jalr	a5
+line 48, vector:     1ef8:	9782                	jalr	a5
+line 49, origin:     1e1a:	f8bff0ef          	jal	1da4 <deregister_tm_clones>
+line 49, vector:     1efa:	f8bff0ef          	jal	1e84 <deregister_tm_clones>
+line 50, origin:     1e1e:	4785                	li	a5,1
+line 50, vector:     1efe:	4785                	li	a5,1
+line 51, origin:     1e20:	00f40023          	sb	a5,0(s0)
+line 51, vector:     1f00:	00f40023          	sb	a5,0(s0)
+line 52, origin:     1e24:	60a2                	ld	ra,8(sp)
+line 52, vector:     1f04:	60a2                	ld	ra,8(sp)
+line 53, origin:     1e26:	6402                	ld	s0,0(sp)
+line 53, vector:     1f06:	6402                	ld	s0,0(sp)
+line 54, origin:     1e28:	0141                	add	sp,sp,16
+line 54, vector:     1f08:	0141                	add	sp,sp,16
+line 55, origin:     1e2a:	8082                	ret
+line 55, vector:     1f0a:	8082                	ret
+
+line 57, origin: 0000000000001e2c <frame_dummy>:
+line 57, vector: 0000000000001f0c <frame_dummy>:
+line 58, origin:     1e2c:	bf69                	j	1dc6 <register_tm_clones>
+line 58, vector:     1f0c:	bf69                	j	1ea6 <register_tm_clones>
+
+line 60, origin: 0000000000001e2e <PyInit___triton_cpu_launcher>:
+line 60, vector: 0000000000001f0e <PyInit___triton_cpu_launcher>:
+line 61, origin:     1e2e:	1141                	add	sp,sp,-16
+line 61, vector:     1f0e:	1141                	add	sp,sp,-16
+line 62, origin:     1e30:	e406                	sd	ra,8(sp)
+line 62, vector:     1f10:	e406                	sd	ra,8(sp)
+line 63, origin:     1e32:	e022                	sd	s0,0(sp)
+line 63, vector:     1f12:	e022                	sd	s0,0(sp)
+line 64, origin:     1e34:	00002517          	auipc	a0,0x2
+line 64, vector:     1f14:	00003517          	auipc	a0,0x3
+line 65, origin:     1e38:	7b450513          	add	a0,a0,1972 # 45e8 <_ZL9ModuleDef>
+line 65, vector:     1f18:	93450513          	add	a0,a0,-1740 # 4848 <_ZL9ModuleDef>
+line 66, origin:     1e3c:	3f500593          	li	a1,1013
+line 66, vector:     1f1c:	3f500593          	li	a1,1013
+line 67, origin:     1e40:	480000ef          	jal	22c0 <PyModule_Create2@plt>
+line 67, vector:     1f20:	5e0000ef          	jal	2500 <PyModule_Create2@plt>
+line 68, origin:     1e44:	c909                	beqz	a0,1e56 <PyInit___triton_cpu_launcher+0x28>
+line 68, vector:     1f24:	c909                	beqz	a0,1f36 <PyInit___triton_cpu_launcher+0x28>
+line 69, origin:     1e46:	00002597          	auipc	a1,0x2
+line 69, vector:     1f26:	00003597          	auipc	a1,0x3
+line 70, origin:     1e4a:	76258593          	add	a1,a1,1890 # 45a8 <_ZL13ModuleMethods>
+line 70, vector:     1f2a:	8e258593          	add	a1,a1,-1822 # 4808 <_ZL13ModuleMethods>
+line 71, origin:     1e4e:	842a                	mv	s0,a0
+line 71, vector:     1f2e:	842a                	mv	s0,a0
+line 72, origin:     1e50:	480000ef          	jal	22d0 <PyModule_AddFunctions@plt>
+line 72, vector:     1f30:	5e0000ef          	jal	2510 <PyModule_AddFunctions@plt>
+line 73, origin:     1e54:	8522                	mv	a0,s0
+line 73, vector:     1f34:	8522                	mv	a0,s0
+line 74, origin:     1e56:	60a2                	ld	ra,8(sp)
+line 74, vector:     1f36:	60a2                	ld	ra,8(sp)
+line 75, origin:     1e58:	6402                	ld	s0,0(sp)
+line 75, vector:     1f38:	6402                	ld	s0,0(sp)
+line 76, origin:     1e5a:	0141                	add	sp,sp,16
+line 76, vector:     1f3a:	0141                	add	sp,sp,16
+line 77, origin:     1e5c:	8082                	ret
+line 77, vector:     1f3c:	8082                	ret
+
+line 79, origin: 0000000000001e5e <_ZL6launchP7_objectS0_>:
+line 79, vector: 0000000000001f3e <_ZL6launchP7_objectS0_>:
+line 80, origin:     1e5e:	7129                	add	sp,sp,-320
+line 80, vector:     1f3e:	7121                	add	sp,sp,-448
+line 81, origin:     1e60:	fe06                	sd	ra,312(sp)
+line 81, vector:     1f40:	ff06                	sd	ra,440(sp)
+line 82, origin:     1e62:	fa22                	sd	s0,304(sp)
+line 82, vector:     1f42:	fb22                	sd	s0,432(sp)
+line 83, origin:     1e64:	f626                	sd	s1,296(sp)
+line 83, vector:     1f44:	f726                	sd	s1,424(sp)
+line 84, origin:     1e66:	f24a                	sd	s2,288(sp)
+line 84, vector:     1f46:	f34a                	sd	s2,416(sp)
+line 85, origin:     1e68:	ee4e                	sd	s3,280(sp)
+line 85, vector:     1f48:	ef4e                	sd	s3,408(sp)
+line 86, origin:     1e6a:	ea52                	sd	s4,272(sp)
+line 86, vector:     1f4a:	eb52                	sd	s4,400(sp)
+line 87, origin:     1e6c:	e656                	sd	s5,264(sp)
+line 87, vector:     1f4c:	e756                	sd	s5,392(sp)
+line 88, origin:     1e6e:	e25a                	sd	s6,256(sp)
+line 88, vector:     1f4e:	e35a                	sd	s6,384(sp)
+line 89, origin:     1e70:	fdde                	sd	s7,248(sp)
+line 89, vector:     1f50:	fede                	sd	s7,376(sp)
+line 90, origin:     1e72:	f9e2                	sd	s8,240(sp)
+line 90, vector:     1f52:	fae2                	sd	s8,368(sp)
+line 91, origin:     1e74:	f5e6                	sd	s9,232(sp)
+line 91, vector:     1f54:	f6e6                	sd	s9,360(sp)
+line 92, origin:     1e76:	f1ea                	sd	s10,224(sp)
+line 92, vector:     1f56:	f2ea                	sd	s10,352(sp)
+line 93, origin:     1e78:	edee                	sd	s11,216(sp)
+line 93, vector:     1f58:	eeee                	sd	s11,344(sp)
+line 94, origin:     1e7a:	852e                	mv	a0,a1
+line 94, vector:     1f5a:	852e                	mv	a0,a1
+line 95, origin:     1e7c:	e182                	sd	zero,192(sp)
+line 95, vector:     1f5c:	e582                	sd	zero,200(sp)
+line 96, origin:     1e7e:	fd02                	sd	zero,184(sp)
+line 96, vector:     1f5e:	e182                	sd	zero,192(sp)
+line 97, origin:     1e80:	f902                	sd	zero,176(sp)
+line 97, vector:     1f60:	fd02                	sd	zero,184(sp)
+line 98, origin:     1e82:	f502                	sd	zero,168(sp)
+line 98, vector:     1f62:	f902                	sd	zero,176(sp)
+line 99, origin:     1e84:	06810813          	add	a6,sp,104
+line 99, vector:     1f64:	07010813          	add	a6,sp,112
+line 100, origin:     1e88:	07010893          	add	a7,sp,112
+line 100, vector:     1f68:	07810893          	add	a7,sp,120
+line 101, origin:     1e8c:	07c10293          	add	t0,sp,124
+line 101, vector:     1f6c:	08410293          	add	t0,sp,132
+line 102, origin:     1e90:	0104                	add	s1,sp,128
+line 102, vector:     1f70:	0124                	add	s1,sp,136
+line 103, origin:     1e92:	0120                	add	s0,sp,136
+line 103, vector:     1f72:	0900                	add	s0,sp,144
+line 104, origin:     1e94:	09010313          	add	t1,sp,144
+line 104, vector:     1f74:	09810313          	add	t1,sp,152
+line 105, origin:     1e98:	0b810393          	add	t2,sp,184
+line 105, vector:     1f78:	0c010393          	add	t2,sp,192
+line 106, origin:     1e9c:	0c010e13          	add	t3,sp,192
+line 106, vector:     1f7c:	0c810e13          	add	t3,sp,200
+line 107, origin:     1ea0:	0a810e93          	add	t4,sp,168
+line 107, vector:     1f80:	0b010e93          	add	t4,sp,176
+line 108, origin:     1ea4:	fffff597          	auipc	a1,0xfffff
+line 108, vector:     1f84:	fffff597          	auipc	a1,0xfffff
+line 109, origin:     1ea8:	09d0                	add	a2,sp,212
+line 109, vector:     1f88:	09f0                	add	a2,sp,220
+line 110, origin:     1eaa:	0994                	add	a3,sp,208
+line 110, vector:     1f8a:	09b4                	add	a3,sp,216
+line 111, origin:     1eac:	01f8                	add	a4,sp,204
+line 111, vector:     1f8c:	09d8                	add	a4,sp,212
+line 112, origin:     1eae:	111c                	add	a5,sp,160
+line 112, vector:     1f8e:	113c                	add	a5,sp,168
+line 113, origin:     1eb0:	e0c2                	sd	a6,64(sp)
+line 113, vector:     1f90:	e0c2                	sd	a6,64(sp)
+line 114, origin:     1eb2:	09810813          	add	a6,sp,152
+line 114, vector:     1f92:	0a010813          	add	a6,sp,160
+line 115, origin:     1eb6:	f022                	sd	s0,32(sp)
+line 115, vector:     1f96:	f022                	sd	s0,32(sp)
+line 116, origin:     1eb8:	f426                	sd	s1,40(sp)
+line 116, vector:     1f98:	f426                	sd	s1,40(sp)
+line 117, origin:     1eba:	f816                	sd	t0,48(sp)
+line 117, vector:     1f9a:	f816                	sd	t0,48(sp)
+line 118, origin:     1ebc:	fc46                	sd	a7,56(sp)
+line 118, vector:     1f9c:	fc46                	sd	a7,56(sp)
+line 119, origin:     1ebe:	0b010893          	add	a7,sp,176
+line 119, vector:     1f9e:	0b810893          	add	a7,sp,184
+line 120, origin:     1ec2:	c8d58593          	add	a1,a1,-883 # b31 <GCC_except_table1+0x41>
+line 120, vector:     1fa2:	c6958593          	add	a1,a1,-919 # bed <GCC_except_table1+0x85>
+line 121, origin:     1ec6:	e076                	sd	t4,0(sp)
+line 121, vector:     1fa6:	e076                	sd	t4,0(sp)
+line 122, origin:     1ec8:	e472                	sd	t3,8(sp)
+line 122, vector:     1fa8:	e472                	sd	t3,8(sp)
+line 123, origin:     1eca:	e81e                	sd	t2,16(sp)
+line 123, vector:     1faa:	e81e                	sd	t2,16(sp)
+line 124, origin:     1ecc:	ec1a                	sd	t1,24(sp)
+line 124, vector:     1fac:	ec1a                	sd	t1,24(sp)
+line 125, origin:     1ece:	412000ef          	jal	22e0 <PyArg_ParseTuple@plt>
+line 125, vector:     1fae:	572000ef          	jal	2520 <PyArg_ParseTuple@plt>
+line 126, origin:     1ed2:	26050663          	beqz	a0,213e <_ZL6launchP7_objectS0_+0x2e0>
+line 126, vector:     1fb2:	38050463          	beqz	a0,233a <_ZL6launchP7_objectS0_+0x3fc>
+line 127, origin:     1ed6:	750a                	ld	a0,160(sp)
+line 127, vector:     1fb6:	752a                	ld	a0,168(sp)
+line 128, origin:     1ed8:	418000ef          	jal	22f0 <PyLong_AsVoidPtr@plt>
+line 128, vector:     1fb8:	578000ef          	jal	2530 <PyLong_AsVoidPtr@plt>
+line 129, origin:     1edc:	6bea                	ld	s7,152(sp)
+line 129, vector:     1fbc:	7c0a                	ld	s8,160(sp)
+line 130, origin:     1ede:	754a                	ld	a0,176(sp)
+line 130, vector:     1fbe:	756a                	ld	a0,184(sp)
+line 131, origin:     1ee0:	fffff597          	auipc	a1,0xfffff
+line 131, vector:     1fc0:	fffff597          	auipc	a1,0xfffff
+line 132, origin:     1ee4:	c9c58593          	add	a1,a1,-868 # b7c <GCC_except_table1+0x8c>
+line 132, vector:     1fc4:	c7858593          	add	a1,a1,-904 # c38 <GCC_except_table1+0xd0>
+line 133, origin:     1ee8:	418000ef          	jal	2300 <PyObject_GetAttrString@plt>
+line 133, vector:     1fc8:	578000ef          	jal	2540 <PyObject_GetAttrString@plt>
+line 134, origin:     1eec:	4c05                	li	s8,1
+line 134, vector:     1fcc:	c901                	beqz	a0,1fdc <_ZL6launchP7_objectS0_+0x9e>
+line 135, origin:     1eee:	c919                	beqz	a0,1f04 <_ZL6launchP7_objectS0_+0xa6>
+line 135, vector:     1fce:	650c                	ld	a1,8(a0)
+line 136, origin:     1ef0:	650c                	ld	a1,8(a0)
+line 136, vector:     1fd0:	0ab5c583          	lbu	a1,171(a1)
+line 137, origin:     1ef2:	0ab5c583          	lbu	a1,171(a1)
+line 137, vector:     1fd4:	8985                	and	a1,a1,1
+line 138, origin:     1ef6:	8985                	and	a1,a1,1
+line 138, vector:     1fd6:	c199                	beqz	a1,1fdc <_ZL6launchP7_objectS0_+0x9e>
+line 139, origin:     1ef8:	c591                	beqz	a1,1f04 <_ZL6launchP7_objectS0_+0xa6>
+line 139, vector:     1fd8:	578000ef          	jal	2550 <PyLong_AsLong@plt>
+line 140, origin:     1efa:	416000ef          	jal	2310 <PyLong_AsLong@plt>
+line 140, vector:     1fdc:	652e                	ld	a0,200(sp)
+line 141, origin:     1efe:	2501                	sext.w	a0,a0
+line 141, vector:     1fde:	00002597          	auipc	a1,0x2
+line 142, origin:     1f00:	00252c13          	slti	s8,a0,2
+line 142, vector:     1fe2:	8125b483          	ld	s1,-2030(a1) # 37f0 <_Py_NoneStruct@Base>
+line 143, origin:     1f04:	650e                	ld	a0,192(sp)
+line 143, vector:     1fe6:	02950963          	beq	a0,s1,2018 <_ZL6launchP7_objectS0_+0xda>
+line 144, origin:     1f06:	00001597          	auipc	a1,0x1
+line 144, vector:     1fea:	75ca                	ld	a1,176(sp)
+line 145, origin:     1f0a:	68a5bb03          	ld	s6,1674(a1) # 3590 <_Py_NoneStruct@Base>
+line 145, vector:     1fec:	fffff517          	auipc	a0,0xfffff
+line 146, origin:     1f0e:	03650963          	beq	a0,s6,1f40 <_ZL6launchP7_objectS0_+0xe2>
+line 146, vector:     1ff0:	c4850513          	add	a0,a0,-952 # c34 <GCC_except_table1+0xcc>
+line 147, origin:     1f12:	75aa                	ld	a1,168(sp)
+line 147, vector:     1ff4:	56c000ef          	jal	2560 <Py_BuildValue@plt>
+line 148, origin:     1f14:	fffff517          	auipc	a0,0xfffff
+line 148, vector:     1ff8:	65ae                	ld	a1,200(sp)
+line 149, origin:     1f18:	c6450513          	add	a0,a0,-924 # b78 <GCC_except_table1+0x88>
+line 149, vector:     1ffa:	842a                	mv	s0,a0
+line 150, origin:     1f1c:	404000ef          	jal	2320 <Py_BuildValue@plt>
+line 150, vector:     1ffc:	852e                	mv	a0,a1
+line 151, origin:     1f20:	658e                	ld	a1,192(sp)
+line 151, vector:     1ffe:	85a2                	mv	a1,s0
+line 152, origin:     1f22:	842a                	mv	s0,a0
+line 152, vector:     2000:	570000ef          	jal	2570 <PyObject_CallObject@plt>
+line 153, origin:     1f24:	852e                	mv	a0,a1
+line 153, vector:     2004:	600c                	ld	a1,0(s0)
+line 154, origin:     1f26:	85a2                	mv	a1,s0
+line 154, vector:     2006:	02059613          	sll	a2,a1,0x20
+line 155, origin:     1f28:	408000ef          	jal	2330 <PyObject_CallObject@plt>
+line 155, vector:     200a:	00064563          	bltz	a2,2014 <_ZL6launchP7_objectS0_+0xd6>
+line 156, origin:     1f2c:	600c                	ld	a1,0(s0)
+line 156, vector:     200e:	15fd                	add	a1,a1,-1
+line 157, origin:     1f2e:	02059613          	sll	a2,a1,0x20
+line 157, vector:     2010:	e00c                	sd	a1,0(s0)
+line 158, origin:     1f32:	00064563          	bltz	a2,1f3c <_ZL6launchP7_objectS0_+0xde>
+line 158, vector:     2012:	c1a5                	beqz	a1,2072 <_ZL6launchP7_objectS0_+0x134>
+line 159, origin:     1f36:	15fd                	add	a1,a1,-1
+line 159, vector:     2014:	32050363          	beqz	a0,233a <_ZL6launchP7_objectS0_+0x3fc>
+line 160, origin:     1f38:	e00c                	sd	a1,0(s0)
+line 160, vector:     2018:	656a                	ld	a0,152(sp)
+line 161, origin:     1f3a:	c1b5                	beqz	a1,1f9e <_ZL6launchP7_objectS0_+0x140>
+line 161, vector:     201a:	38c000ef          	jal	23a6 <_ZL10getPointerP7_objecti>
+line 162, origin:     1f3c:	20050163          	beqz	a0,213e <_ZL6launchP7_objectS0_+0x2e0>
+line 162, vector:     201e:	8985                	and	a1,a1,1
+line 163, origin:     1f40:	654a                	ld	a0,144(sp)
+line 163, vector:     2020:	30058d63          	beqz	a1,233a <_ZL6launchP7_objectS0_+0x3fc>
+line 164, origin:     1f42:	250000ef          	jal	2192 <_ZL10getPointerP7_objecti>
+line 164, vector:     2024:	8b2a                	mv	s6,a0
+line 165, origin:     1f46:	8985                	and	a1,a1,1
+line 165, vector:     2026:	654a                	ld	a0,144(sp)
+line 166, origin:     1f48:	1e058b63          	beqz	a1,213e <_ZL6launchP7_objectS0_+0x2e0>
+line 166, vector:     2028:	37e000ef          	jal	23a6 <_ZL10getPointerP7_objecti>
+line 167, origin:     1f4c:	8aaa                	mv	s5,a0
+line 167, vector:     202c:	8985                	and	a1,a1,1
+line 168, origin:     1f4e:	652a                	ld	a0,136(sp)
+line 168, vector:     202e:	30058663          	beqz	a1,233a <_ZL6launchP7_objectS0_+0x3fc>
+line 169, origin:     1f50:	242000ef          	jal	2192 <_ZL10getPointerP7_objecti>
+line 169, vector:     2032:	8aaa                	mv	s5,a0
+line 170, origin:     1f54:	8985                	and	a1,a1,1
+line 170, vector:     2034:	652a                	ld	a0,136(sp)
+line 171, origin:     1f56:	1e058463          	beqz	a1,213e <_ZL6launchP7_objectS0_+0x2e0>
+line 171, vector:     2036:	370000ef          	jal	23a6 <_ZL10getPointerP7_objecti>
+line 172, origin:     1f5a:	892a                	mv	s2,a0
+line 172, vector:     203a:	8985                	and	a1,a1,1
+line 173, origin:     1f5c:	650a                	ld	a0,128(sp)
+line 173, vector:     203c:	2e058f63          	beqz	a1,233a <_ZL6launchP7_objectS0_+0x3fc>
+line 174, origin:     1f5e:	234000ef          	jal	2192 <_ZL10getPointerP7_objecti>
+line 174, vector:     2040:	89aa                	mv	s3,a0
+line 175, origin:     1f62:	8985                	and	a1,a1,1
+line 175, vector:     2042:	0dc16b83          	lwu	s7,220(sp)
+line 176, origin:     1f64:	1c058d63          	beqz	a1,213e <_ZL6launchP7_objectS0_+0x2e0>
+line 176, vector:     2046:	4dee                	lw	s11,216(sp)
+line 177, origin:     1f68:	f0aa                	sd	a0,96(sp)
+line 177, vector:     2048:	4cde                	lw	s9,212(sp)
+line 178, origin:     1f6a:	0d416983          	lwu	s3,212(sp)
+line 178, vector:     204a:	4a1a                	lw	s4,132(sp)
+line 179, origin:     1f6e:	4cce                	lw	s9,208(sp)
+line 179, vector:     204c:	037d8533          	mul	a0,s11,s7
+line 180, origin:     1f70:	4d3e                	lw	s10,204(sp)
+line 180, vector:     2050:	0395093b          	mulw	s2,a0,s9
+line 181, origin:     1f72:	56f6                	lw	a3,124(sp)
+line 181, vector:     2054:	4505                	li	a0,1
+line 182, origin:     1f74:	033c8533          	mul	a0,s9,s3
+line 182, vector:     2056:	02a91563          	bne	s2,a0,2080 <_ZL6launchP7_objectS0_+0x142>
+line 183, origin:     1f78:	03a505bb          	mulw	a1,a0,s10
+line 183, vector:     205a:	4885                	li	a7,1
+line 184, origin:     1f7c:	4505                	li	a0,1
+line 184, vector:     205c:	e02a                	sd	a0,0(sp)
+line 185, origin:     1f7e:	02a59663          	bne	a1,a0,1faa <_ZL6launchP7_objectS0_+0x14c>
+line 185, vector:     205e:	e42a                	sd	a0,8(sp)
+line 186, origin:     1f82:	4885                	li	a7,1
+line 186, vector:     2060:	855a                	mv	a0,s6
+line 187, origin:     1f84:	e02a                	sd	a0,0(sp)
+line 187, vector:     2062:	85d6                	mv	a1,s5
+line 188, origin:     1f86:	e42a                	sd	a0,8(sp)
+line 188, vector:     2064:	864e                	mv	a2,s3
+line 189, origin:     1f88:	8556                	mv	a0,s5
+line 189, vector:     2066:	86d2                	mv	a3,s4
+line 190, origin:     1f8a:	85ca                	mv	a1,s2
+line 190, vector:     2068:	4701                	li	a4,0
+line 191, origin:     1f8c:	7606                	ld	a2,96(sp)
+line 191, vector:     206a:	4781                	li	a5,0
+line 192, origin:     1f8e:	4701                	li	a4,0
+line 192, vector:     206c:	4801                	li	a6,0
+line 193, origin:     1f90:	4781                	li	a5,0
+line 193, vector:     206e:	9c02                	jalr	s8
+line 194, origin:     1f92:	4801                	li	a6,0
+line 194, vector:     2070:	a461                	j	22f8 <_ZL6launchP7_objectS0_+0x3ba>
+line 195, origin:     1f94:	9b82                	jalr	s7
+line 195, vector:     2072:	892a                	mv	s2,a0
+line 196, origin:     1f96:	756a                	ld	a0,184(sp)
+line 196, vector:     2074:	8522                	mv	a0,s0
+line 197, origin:     1f98:	17651563          	bne	a0,s6,2102 <_ZL6launchP7_objectS0_+0x2a4>
+line 197, vector:     2076:	50a000ef          	jal	2580 <_Py_Dealloc@plt>
+line 198, origin:     1f9c:	aa71                	j	2138 <_ZL6launchP7_objectS0_+0x2da>
+line 198, vector:     207a:	f8091fe3          	bnez	s2,2018 <_ZL6launchP7_objectS0_+0xda>
+line 199, origin:     1f9e:	84aa                	mv	s1,a0
+line 199, vector:     207e:	ac75                	j	233a <_ZL6launchP7_objectS0_+0x3fc>
+line 200, origin:     1fa0:	8522                	mv	a0,s0
+line 200, vector:     2080:	e8e2                	sd	s8,80(sp)
+line 201, origin:     1fa2:	39e000ef          	jal	2340 <_Py_Dealloc@plt>
+line 201, vector:     2082:	02091513          	sll	a0,s2,0x20
+line 202, origin:     1fa6:	fcc9                	bnez	s1,1f40 <_ZL6launchP7_objectS0_+0xe2>
+line 202, vector:     2086:	cd817057          	.insn	4, 0xcd817057
+line 203, origin:     1fa8:	aa59                	j	213e <_ZL6launchP7_objectS0_+0x2e0>
+line 203, vector:     208a:	5e003457          	.insn	4, 0x5e003457
+line 204, origin:     1faa:	ecb6                	sd	a3,88(sp)
+line 204, vector:     208e:	028c                	add	a1,sp,320
+line 205, origin:     1fac:	00098a1b          	sext.w	s4,s3
+line 205, vector:     2090:	9101                	srl	a0,a0,0x20
+line 206, origin:     1fb0:	e8ae                	sd	a1,80(sp)
+line 206, vector:     2092:	0205f427          	.insn	4, 0x0205f427
+line 207, origin:     1fb2:	02059513          	sll	a0,a1,0x20
+line 207, vector:     2096:	ea82                	sd	zero,336(sp)
+line 208, origin:     1fb6:	02055d93          	srl	s11,a0,0x20
+line 208, vector:     2098:	e4aa                	sd	a0,72(sp)
+line 209, origin:     1fba:	002d9513          	sll	a0,s11,0x2
+line 209, vector:     209a:	00251413          	sll	s0,a0,0x2
+line 210, origin:     1fbe:	004d9593          	sll	a1,s11,0x4
+line 210, vector:     209e:	8522                	mv	a0,s0
+line 211, origin:     1fc2:	40a58533          	sub	a0,a1,a0
+line 211, vector:     20a0:	4f0000ef          	jal	2590 <_Znam@plt>
+line 212, origin:     1fc6:	38a000ef          	jal	2350 <_Znam@plt>
+line 212, vector:     20a4:	8c2a                	mv	s8,a0
+line 213, origin:     1fca:	84aa                	mv	s1,a0
+line 213, vector:     20a6:	4581                	li	a1,0
+line 214, origin:     1fcc:	0c0a0263          	beqz	s4,2090 <_ZL6launchP7_objectS0_+0x232>
+line 214, vector:     20a8:	8622                	mv	a2,s0
+line 215, origin:     1fd0:	0c0c8063          	beqz	s9,2090 <_ZL6launchP7_objectS0_+0x232>
+line 215, vector:     20aa:	4f6000ef          	jal	25a0 <memset@plt>
+line 216, origin:     1fd4:	0a0d0e63          	beqz	s10,2090 <_ZL6launchP7_objectS0_+0x232>
+line 216, vector:     20ae:	e2e2                	sd	s8,320(sp)
+line 217, origin:     1fd8:	4881                	li	a7,0
+line 217, vector:     20b0:	8522                	mv	a0,s0
+line 218, origin:     1fda:	4581                	li	a1,0
+line 218, vector:     20b2:	4de000ef          	jal	2590 <_Znam@plt>
+line 219, origin:     1fdc:	fff98513          	add	a0,s3,-1
+line 219, vector:     20b6:	8d2a                	mv	s10,a0
+line 220, origin:     1fe0:	034c8833          	mul	a6,s9,s4
+line 220, vector:     20b8:	f4ca                	sd	s2,104(sp)
+line 221, origin:     1fe4:	ff89fe93          	and	t4,s3,-8
+line 221, vector:     20ba:	eca6                	sd	s1,88(sp)
+line 222, origin:     1fe8:	4321                	li	t1,8
+line 222, vector:     20bc:	4581                	li	a1,0
+line 223, origin:     1fea:	0005039b          	sext.w	t2,a0
+line 223, vector:     20be:	8622                	mv	a2,s0
+line 224, origin:     1fee:	02055293          	srl	t0,a0,0x20
+line 224, vector:     20c0:	4e0000ef          	jal	25a0 <memset@plt>
+line 225, origin:     1ff2:	cd147057          	.insn	4, 0xcd147057
+line 225, vector:     20c4:	e6ea                	sd	s10,328(sp)
+line 226, origin:     1ff6:	5208a857          	.insn	4, 0x5208a857
+line 226, vector:     20c6:	f0a2                	sd	s0,96(sp)
+line 227, origin:     1ffa:	a029                	j	2004 <_ZL6launchP7_objectS0_+0x1a6>
+line 227, vector:     20c8:	8522                	mv	a0,s0
+line 228, origin:     1ffc:	2585                	addw	a1,a1,1
+line 228, vector:     20ca:	4c6000ef          	jal	2590 <_Znam@plt>
+line 229, origin:     1ffe:	98c2                	add	a7,a7,a6
+line 229, vector:     20ce:	84aa                	mv	s1,a0
+line 230, origin:     2000:	09a58863          	beq	a1,s10,2090 <_ZL6launchP7_objectS0_+0x232>
+line 230, vector:     20d0:	000b891b          	sext.w	s2,s7
+line 231, origin:     2004:	4501                	li	a0,0
+line 231, vector:     20d4:	4581                	li	a1,0
+line 232, origin:     2006:	02b80e33          	mul	t3,a6,a1
+line 232, vector:     20d6:	7606                	ld	a2,96(sp)
+line 233, origin:     200a:	cd287057          	.insn	4, 0xcd287057
+line 233, vector:     20d8:	4c8000ef          	jal	25a0 <memset@plt>
+line 234, origin:     200e:	5e05c657          	.insn	4, 0x5e05c657
+line 234, vector:     20dc:	eaa6                	sd	s1,336(sp)
+line 235, origin:     2012:	8446                	mv	s0,a7
+line 235, vector:     20de:	0e090363          	beqz	s2,21c4 <_ZL6launchP7_objectS0_+0x286>
+line 236, origin:     2014:	a029                	j	201e <_ZL6launchP7_objectS0_+0x1c0>
+line 236, vector:     20e2:	0e0d8163          	beqz	s11,21c4 <_ZL6launchP7_objectS0_+0x286>
+line 237, origin:     2016:	2505                	addw	a0,a0,1
+line 237, vector:     20e6:	0c0c8f63          	beqz	s9,21c4 <_ZL6launchP7_objectS0_+0x286>
+line 238, origin:     2018:	9452                	add	s0,s0,s4
+line 238, vector:     20ea:	c22025f3          	csrr	a1,vlenb
+line 239, origin:     201a:	ff9501e3          	beq	a0,s9,1ffc <_ZL6launchP7_objectS0_+0x19e>
+line 239, vector:     20ee:	0015df13          	srl	t5,a1,0x1
+line 240, origin:     201e:	026a7463          	bgeu	s4,t1,2046 <_ZL6launchP7_objectS0_+0x1e8>
+line 240, vector:     20f2:	46a1                	li	a3,8
+line 241, origin:     2022:	4681                	li	a3,0
+line 241, vector:     20f4:	fffb8613          	add	a2,s7,-1
+line 242, origin:     2024:	40d987b3          	sub	a5,s3,a3
+line 242, vector:     20f8:	8efa                	mv	t4,t5
+line 243, origin:     2028:	00d40633          	add	a2,s0,a3
+line 243, vector:     20fa:	01e6e363          	bltu	a3,t5,2100 <_ZL6launchP7_objectS0_+0x1c2>
+line 244, origin:     202c:	17fd                	add	a5,a5,-1
+line 244, vector:     20fe:	4ea1                	li	t4,8
+line 245, origin:     202e:	1602                	sll	a2,a2,0x20
+line 245, vector:     2100:	4881                	li	a7,0
+line 246, origin:     2030:	01e65713          	srl	a4,a2,0x1e
+line 246, vector:     2102:	4681                	li	a3,0
+line 247, origin:     2034:	8271                	srl	a2,a2,0x1c
+line 247, vector:     2104:	032d8833          	mul	a6,s11,s2
+line 248, origin:     2036:	8e19                	sub	a2,a2,a4
+line 248, vector:     2108:	0006031b          	sext.w	t1,a2
+line 249, origin:     2038:	9626                	add	a2,a2,s1
+line 249, vector:     210c:	02065293          	srl	t0,a2,0x20
+line 250, origin:     203a:	c214                	sw	a3,0(a2)
+line 250, vector:     2110:	818d                	srl	a1,a1,0x3
+line 251, origin:     203c:	c248                	sw	a0,4(a2)
+line 251, vector:     2112:	058a                	sll	a1,a1,0x2
+line 252, origin:     203e:	c60c                	sw	a1,8(a2)
+line 252, vector:     2114:	40b005b3          	neg	a1,a1
+line 253, origin:     2040:	0685                	add	a3,a3,1
+line 253, vector:     2118:	0175fe33          	and	t3,a1,s7
+line 254, origin:     2042:	f3fd                	bnez	a5,2028 <_ZL6launchP7_objectS0_+0x1ca>
+line 254, vector:     211c:	0d1075d7          	.insn	4, 0x0d1075d7
+line 255, origin:     2044:	bfc9                	j	2016 <_ZL6launchP7_objectS0_+0x1b8>
+line 255, vector:     2120:	5208a457          	.insn	4, 0x5208a457
+line 256, origin:     2046:	02aa06b3          	mul	a3,s4,a0
+line 256, vector:     2124:	a029                	j	212e <_ZL6launchP7_objectS0_+0x1f0>
+line 257, origin:     204a:	00de06bb          	addw	a3,t3,a3
+line 257, vector:     2126:	2685                	addw	a3,a3,1
+line 258, origin:     204e:	fff6c793          	not	a5,a3
+line 258, vector:     2128:	98c2                	add	a7,a7,a6
+line 259, origin:     2052:	4681                	li	a3,0
+line 259, vector:     212a:	09968d63          	beq	a3,s9,21c4 <_ZL6launchP7_objectS0_+0x286>
+line 260, origin:     2054:	fc77e8e3          	bltu	a5,t2,2024 <_ZL6launchP7_objectS0_+0x1c6>
+line 260, vector:     212e:	4701                	li	a4,0
+line 261, origin:     2058:	fc0296e3          	bnez	t0,2024 <_ZL6launchP7_objectS0_+0x1c6>
+line 261, vector:     2130:	02d803b3          	mul	t2,a6,a3
+line 262, origin:     205c:	cd147057          	.insn	4, 0xcd147057
+line 262, vector:     2134:	5e06c557          	.insn	4, 0x5e06c557
+line 263, origin:     2060:	5e054557          	.insn	4, 0x5e054557
+line 263, vector:     2138:	87c6                	mv	a5,a7
+line 264, origin:     2064:	86a2                	mv	a3,s0
+line 264, vector:     213a:	a029                	j	2144 <_ZL6launchP7_objectS0_+0x206>
+line 265, origin:     2066:	87f6                	mv	a5,t4
+line 265, vector:     213c:	2705                	addw	a4,a4,1
+line 266, origin:     2068:	9f00b457          	.insn	4, 0x9f00b457
+line 266, vector:     213e:	97ca                	add	a5,a5,s2
+line 267, origin:     206c:	02069613          	sll	a2,a3,0x20
+line 267, vector:     2140:	ffb703e3          	beq	a4,s11,2126 <_ZL6launchP7_objectS0_+0x1e8>
+line 268, origin:     2070:	17e1                	add	a5,a5,-8
+line 268, vector:     2144:	03dbf663          	bgeu	s7,t4,2170 <_ZL6launchP7_objectS0_+0x232>
+line 269, origin:     2072:	01e65713          	srl	a4,a2,0x1e
+line 269, vector:     2148:	4601                	li	a2,0
+line 270, origin:     2076:	8271                	srl	a2,a2,0x1c
+line 270, vector:     214a:	40cb85b3          	sub	a1,s7,a2
+line 271, origin:     2078:	8e19                	sub	a2,a2,a4
+line 271, vector:     214e:	00c78533          	add	a0,a5,a2
+line 272, origin:     207a:	9626                	add	a2,a2,s1
+line 272, vector:     2152:	15fd                	add	a1,a1,-1
+line 273, origin:     207c:	42066427          	.insn	4, 0x42066427
+line 273, vector:     2154:	1502                	sll	a0,a0,0x20
+line 274, origin:     2080:	02843457          	.insn	4, 0x02843457
+line 274, vector:     2156:	01e55413          	srl	s0,a0,0x1e
+line 275, origin:     2084:	06a1                	add	a3,a3,8
+line 275, vector:     215a:	008c0533          	add	a0,s8,s0
+line 276, origin:     2086:	f3fd                	bnez	a5,206c <_ZL6launchP7_objectS0_+0x20e>
+line 276, vector:     215e:	c110                	sw	a2,0(a0)
+line 277, origin:     2088:	86f6                	mv	a3,t4
+line 277, vector:     2160:	008d0533          	add	a0,s10,s0
+line 278, origin:     208a:	f93e86e3          	beq	t4,s3,2016 <_ZL6launchP7_objectS0_+0x1b8>
+line 278, vector:     2164:	9426                	add	s0,s0,s1
+line 279, origin:     208e:	bf59                	j	2024 <_ZL6launchP7_objectS0_+0x1c6>
+line 279, vector:     2166:	c118                	sw	a4,0(a0)
+line 280, origin:     2090:	020c0b63          	beqz	s8,20c6 <_ZL6launchP7_objectS0_+0x268>
+line 280, vector:     2168:	c014                	sw	a3,0(s0)
+line 281, origin:     2094:	7986                	ld	s3,96(sp)
+line 281, vector:     216a:	0605                	add	a2,a2,1
+line 282, origin:     2096:	6c66                	ld	s8,88(sp)
+line 282, vector:     216c:	f1ed                	bnez	a1,214e <_ZL6launchP7_objectS0_+0x210>
+line 283, origin:     2098:	6546                	ld	a0,80(sp)
+line 283, vector:     216e:	b7f9                	j	213c <_ZL6launchP7_objectS0_+0x1fe>
+line 284, origin:     209a:	cd31                	beqz	a0,20f6 <_ZL6launchP7_objectS0_+0x298>
+line 284, vector:     2170:	02e905b3          	mul	a1,s2,a4
+line 285, origin:     209c:	00848413          	add	s0,s1,8
+line 285, vector:     2174:	00b385bb          	addw	a1,t2,a1
+line 286, origin:     20a0:	ff842703          	lw	a4,-8(s0)
+line 286, vector:     2178:	fff5c593          	not	a1,a1
+line 287, origin:     20a4:	ffc42783          	lw	a5,-4(s0)
+line 287, vector:     217c:	4601                	li	a2,0
+line 288, origin:     20a8:	00042803          	lw	a6,0(s0)
+line 288, vector:     217e:	fc65e6e3          	bltu	a1,t1,214a <_ZL6launchP7_objectS0_+0x20c>
+line 289, origin:     20ac:	e066                	sd	s9,0(sp)
+line 289, vector:     2182:	fc0294e3          	bnez	t0,214a <_ZL6launchP7_objectS0_+0x20c>
+line 290, origin:     20ae:	e46a                	sd	s10,8(sp)
+line 290, vector:     2186:	5e074657          	.insn	4, 0x5e074657
+line 291, origin:     20b0:	8556                	mv	a0,s5
+line 291, vector:     218a:	863e                	mv	a2,a5
+line 292, origin:     20b2:	85ca                	mv	a1,s2
+line 292, vector:     218c:	85f2                	mv	a1,t3
+line 293, origin:     20b4:	864e                	mv	a2,s3
+line 293, vector:     218e:	9e80b757          	.insn	4, 0x9e80b757
+line 294, origin:     20b6:	86e2                	mv	a3,s8
+line 294, vector:     2192:	02061513          	sll	a0,a2,0x20
+line 295, origin:     20b8:	88d2                	mv	a7,s4
+line 295, vector:     2196:	41e585b3          	sub	a1,a1,t5
+line 296, origin:     20ba:	9b82                	jalr	s7
+line 296, vector:     219a:	01e55413          	srl	s0,a0,0x1e
+line 297, origin:     20bc:	1dfd                	add	s11,s11,-1
+line 297, vector:     219e:	008c0533          	add	a0,s8,s0
+line 298, origin:     20be:	0431                	add	s0,s0,12
+line 298, vector:     21a2:	22850727          	.insn	4, 0x22850727
+line 299, origin:     20c0:	fe0d90e3          	bnez	s11,20a0 <_ZL6launchP7_objectS0_+0x242>
+line 299, vector:     21a6:	008d0533          	add	a0,s10,s0
+line 300, origin:     20c4:	a80d                	j	20f6 <_ZL6launchP7_objectS0_+0x298>
+line 300, vector:     21aa:	9426                	add	s0,s0,s1
+line 301, origin:     20c6:	7986                	ld	s3,96(sp)
+line 301, vector:     21ac:	22850627          	.insn	4, 0x22850627
+line 302, origin:     20c8:	6c66                	ld	s8,88(sp)
+line 302, vector:     21b0:	22840527          	.insn	4, 0x22840527
+line 303, origin:     20ca:	6546                	ld	a0,80(sp)
+line 303, vector:     21b4:	02ef4757          	.insn	4, 0x02ef4757
+line 304, origin:     20cc:	c50d                	beqz	a0,20f6 <_ZL6launchP7_objectS0_+0x298>
+line 304, vector:     21b8:	967a                	add	a2,a2,t5
+line 305, origin:     20ce:	00848413          	add	s0,s1,8
+line 305, vector:     21ba:	fde1                	bnez	a1,2192 <_ZL6launchP7_objectS0_+0x254>
+line 306, origin:     20d2:	ff842703          	lw	a4,-8(s0)
+line 306, vector:     21bc:	8672                	mv	a2,t3
+line 307, origin:     20d6:	ffc42783          	lw	a5,-4(s0)
+line 307, vector:     21be:	f77e0fe3          	beq	t3,s7,213c <_ZL6launchP7_objectS0_+0x1fe>
+line 308, origin:     20da:	00042803          	lw	a6,0(s0)
+line 308, vector:     21c2:	b761                	j	214a <_ZL6launchP7_objectS0_+0x20c>
+line 309, origin:     20de:	e066                	sd	s9,0(sp)
+line 309, vector:     21c4:	7526                	ld	a0,104(sp)
+line 310, origin:     20e0:	e46a                	sd	s10,8(sp)
+line 310, vector:     21c6:	10050d63          	beqz	a0,22e0 <_ZL6launchP7_objectS0_+0x3a2>
+line 311, origin:     20e2:	8556                	mv	a0,s5
+line 311, vector:     21ca:	4401                	li	s0,0
+line 312, origin:     20e4:	85ca                	mv	a1,s2
+line 312, vector:     21cc:	4b81                	li	s7,0
+line 313, origin:     20e6:	864e                	mv	a2,s3
+line 313, vector:     21ce:	0e010c13          	add	s8,sp,224
+line 314, origin:     20e8:	86e2                	mv	a3,s8
+line 314, vector:     21d2:	64c6                	ld	s1,80(sp)
+line 315, origin:     20ea:	88d2                	mv	a7,s4
+line 315, vector:     21d4:	6d26                	ld	s10,72(sp)
+line 316, origin:     20ec:	9b82                	jalr	s7
+line 316, vector:     21d6:	6516                	ld	a0,320(sp)
+line 317, origin:     20ee:	1dfd                	add	s11,s11,-1
+line 317, vector:     21d8:	65b6                	ld	a1,328(sp)
+line 318, origin:     20f0:	0431                	add	s0,s0,12
+line 318, vector:     21da:	6656                	ld	a2,336(sp)
+line 319, origin:     20f2:	fe0d90e3          	bnez	s11,20d2 <_ZL6launchP7_objectS0_+0x274>
+line 319, vector:     21dc:	9522                	add	a0,a0,s0
+line 320, origin:     20f6:	8526                	mv	a0,s1
+line 320, vector:     21de:	95a2                	add	a1,a1,s0
+line 321, origin:     20f8:	268000ef          	jal	2360 <_ZdaPv@plt>
+line 321, vector:     21e0:	9622                	add	a2,a2,s0
+line 322, origin:     20fc:	756a                	ld	a0,184(sp)
+line 322, vector:     21e2:	cd347057          	.insn	4, 0xcd347057
+line 323, origin:     20fe:	03650d63          	beq	a0,s6,2138 <_ZL6launchP7_objectS0_+0x2da>
+line 323, vector:     21e6:	02056407          	.insn	4, 0x02056407
+line 324, origin:     2102:	75aa                	ld	a1,168(sp)
+line 324, vector:     21ea:	0205e807          	.insn	4, 0x0205e807
+line 325, origin:     2104:	fffff517          	auipc	a0,0xfffff
+line 325, vector:     21ee:	02066c07          	.insn	4, 0x02066c07
+line 326, origin:     2108:	a7450513          	add	a0,a0,-1420 # b78 <GCC_except_table1+0x88>
+line 326, vector:     21f2:	1208                	add	a0,sp,288
+line 327, origin:     210c:	214000ef          	jal	2320 <Py_BuildValue@plt>
+line 327, vector:     21f4:	02056427          	.insn	4, 0x02056427
+line 328, origin:     2110:	75ea                	ld	a1,184(sp)
+line 328, vector:     21f8:	0208                	add	a0,sp,256
+line 329, origin:     2112:	842a                	mv	s0,a0
+line 329, vector:     21fa:	02056827          	.insn	4, 0x02056827
+line 330, origin:     2114:	852e                	mv	a0,a1
+line 330, vector:     21fe:	020c6c27          	.insn	4, 0x020c6c27
+line 331, origin:     2116:	85a2                	mv	a1,s0
+line 331, vector:     2202:	12012703          	lw	a4,288(sp)
+line 332, origin:     2118:	218000ef          	jal	2330 <PyObject_CallObject@plt>
+line 332, vector:     2206:	10012783          	lw	a5,256(sp)
+line 333, origin:     211c:	600c                	ld	a1,0(s0)
+line 333, vector:     220a:	580e                	lw	a6,224(sp)
+line 334, origin:     211e:	02059613          	sll	a2,a1,0x20
+line 334, vector:     220c:	e06e                	sd	s11,0(sp)
+line 335, origin:     2122:	00064a63          	bltz	a2,2136 <_ZL6launchP7_objectS0_+0x2d8>
+line 335, vector:     220e:	e466                	sd	s9,8(sp)
+line 336, origin:     2126:	15fd                	add	a1,a1,-1
+line 336, vector:     2210:	855a                	mv	a0,s6
+line 337, origin:     2128:	e00c                	sd	a1,0(s0)
+line 337, vector:     2212:	85d6                	mv	a1,s5
+line 338, origin:     212a:	e591                	bnez	a1,2136 <_ZL6launchP7_objectS0_+0x2d8>
+line 338, vector:     2214:	864e                	mv	a2,s3
+line 339, origin:     212c:	84aa                	mv	s1,a0
+line 339, vector:     2216:	86d2                	mv	a3,s4
+line 340, origin:     212e:	8522                	mv	a0,s0
+line 340, vector:     2218:	88ca                	mv	a7,s2
+line 341, origin:     2130:	210000ef          	jal	2340 <_Py_Dealloc@plt>
+line 341, vector:     221a:	9482                	jalr	s1
+line 342, origin:     2134:	8526                	mv	a0,s1
+line 342, vector:     221c:	12412703          	lw	a4,292(sp)
+line 343, origin:     2136:	c501                	beqz	a0,213e <_ZL6launchP7_objectS0_+0x2e0>
+line 343, vector:     2220:	10412783          	lw	a5,260(sp)
+line 344, origin:     2138:	238000ef          	jal	2370 <PyErr_Occurred@plt>
+line 344, vector:     2224:	581e                	lw	a6,228(sp)
+line 345, origin:     213c:	c115                	beqz	a0,2160 <_ZL6launchP7_objectS0_+0x302>
+line 345, vector:     2226:	e06e                	sd	s11,0(sp)
+line 346, origin:     213e:	4b01                	li	s6,0
+line 346, vector:     2228:	e466                	sd	s9,8(sp)
+line 347, origin:     2140:	855a                	mv	a0,s6
+line 347, vector:     222a:	855a                	mv	a0,s6
+line 348, origin:     2142:	70f2                	ld	ra,312(sp)
+line 348, vector:     222c:	85d6                	mv	a1,s5
+line 349, origin:     2144:	7452                	ld	s0,304(sp)
+line 349, vector:     222e:	864e                	mv	a2,s3
+line 350, origin:     2146:	74b2                	ld	s1,296(sp)
+line 350, vector:     2230:	86d2                	mv	a3,s4
+line 351, origin:     2148:	7912                	ld	s2,288(sp)
+line 351, vector:     2232:	88ca                	mv	a7,s2
+line 352, origin:     214a:	69f2                	ld	s3,280(sp)
+line 352, vector:     2234:	9482                	jalr	s1
+line 353, origin:     214c:	6a52                	ld	s4,272(sp)
+line 353, vector:     2236:	12812703          	lw	a4,296(sp)
+line 354, origin:     214e:	6ab2                	ld	s5,264(sp)
+line 354, vector:     223a:	10812783          	lw	a5,264(sp)
+line 355, origin:     2150:	6b12                	ld	s6,256(sp)
+line 355, vector:     223e:	582e                	lw	a6,232(sp)
+line 356, origin:     2152:	7bee                	ld	s7,248(sp)
+line 356, vector:     2240:	e06e                	sd	s11,0(sp)
+line 357, origin:     2154:	7c4e                	ld	s8,240(sp)
+line 357, vector:     2242:	e466                	sd	s9,8(sp)
+line 358, origin:     2156:	7cae                	ld	s9,232(sp)
+line 358, vector:     2244:	855a                	mv	a0,s6
+line 359, origin:     2158:	7d0e                	ld	s10,224(sp)
+line 359, vector:     2246:	85d6                	mv	a1,s5
+line 360, origin:     215a:	6dee                	ld	s11,216(sp)
+line 360, vector:     2248:	864e                	mv	a2,s3
+line 361, origin:     215c:	6131                	add	sp,sp,320
+line 361, vector:     224a:	86d2                	mv	a3,s4
+line 362, origin:     215e:	8082                	ret
+line 362, vector:     224c:	88ca                	mv	a7,s2
+line 363, origin:     2160:	000b2503          	lw	a0,0(s6)
+line 363, vector:     224e:	9482                	jalr	s1
+line 364, origin:     2164:	2505                	addw	a0,a0,1
+line 364, vector:     2250:	12c12703          	lw	a4,300(sp)
+line 365, origin:     2166:	dd69                	beqz	a0,2140 <_ZL6launchP7_objectS0_+0x2e2>
+line 365, vector:     2254:	10c12783          	lw	a5,268(sp)
+line 366, origin:     2168:	00001597          	auipc	a1,0x1
+line 366, vector:     2258:	583e                	lw	a6,236(sp)
+line 367, origin:     216c:	4285bb03          	ld	s6,1064(a1) # 3590 <_Py_NoneStruct@Base>
+line 367, vector:     225a:	e06e                	sd	s11,0(sp)
+line 368, origin:     2170:	00ab2023          	sw	a0,0(s6)
+line 368, vector:     225c:	e466                	sd	s9,8(sp)
+line 369, origin:     2174:	b7f1                	j	2140 <_ZL6launchP7_objectS0_+0x2e2>
+line 369, vector:     225e:	855a                	mv	a0,s6
+line 370, origin:     2176:	842a                	mv	s0,a0
+line 370, vector:     2260:	85d6                	mv	a1,s5
+line 371, origin:     2178:	8526                	mv	a0,s1
+line 371, vector:     2262:	864e                	mv	a2,s3
+line 372, origin:     217a:	1e6000ef          	jal	2360 <_ZdaPv@plt>
+line 372, vector:     2264:	86d2                	mv	a3,s4
+line 373, origin:     217e:	8522                	mv	a0,s0
+line 373, vector:     2266:	88ca                	mv	a7,s2
+line 374, origin:     2180:	200000ef          	jal	2380 <_Unwind_Resume@plt>
+line 374, vector:     2268:	9482                	jalr	s1
+line 375, origin:     2184:	842a                	mv	s0,a0
+line 375, vector:     226a:	13012703          	lw	a4,304(sp)
+line 376, origin:     2186:	8526                	mv	a0,s1
+line 376, vector:     226e:	11012783          	lw	a5,272(sp)
+line 377, origin:     2188:	1d8000ef          	jal	2360 <_ZdaPv@plt>
+line 377, vector:     2272:	584e                	lw	a6,240(sp)
+line 378, origin:     218c:	8522                	mv	a0,s0
+line 378, vector:     2274:	e06e                	sd	s11,0(sp)
+line 379, origin:     218e:	1f2000ef          	jal	2380 <_Unwind_Resume@plt>
+line 379, vector:     2276:	e466                	sd	s9,8(sp)
+line 380, vector:     2278:	855a                	mv	a0,s6
+line 381, vector:     227a:	85d6                	mv	a1,s5
+line 382, vector:     227c:	864e                	mv	a2,s3
+line 383, vector:     227e:	86d2                	mv	a3,s4
+line 384, vector:     2280:	88ca                	mv	a7,s2
+line 385, vector:     2282:	9482                	jalr	s1
+line 386, vector:     2284:	13412703          	lw	a4,308(sp)
+line 387, vector:     2288:	11412783          	lw	a5,276(sp)
+line 388, vector:     228c:	585e                	lw	a6,244(sp)
+line 389, vector:     228e:	e06e                	sd	s11,0(sp)
+line 390, vector:     2290:	e466                	sd	s9,8(sp)
+line 391, vector:     2292:	855a                	mv	a0,s6
+line 392, vector:     2294:	85d6                	mv	a1,s5
+line 393, vector:     2296:	864e                	mv	a2,s3
+line 394, vector:     2298:	86d2                	mv	a3,s4
+line 395, vector:     229a:	88ca                	mv	a7,s2
+line 396, vector:     229c:	9482                	jalr	s1
+line 397, vector:     229e:	13812703          	lw	a4,312(sp)
+line 398, vector:     22a2:	11812783          	lw	a5,280(sp)
+line 399, vector:     22a6:	586e                	lw	a6,248(sp)
+line 400, vector:     22a8:	e06e                	sd	s11,0(sp)
+line 401, vector:     22aa:	e466                	sd	s9,8(sp)
+line 402, vector:     22ac:	855a                	mv	a0,s6
+line 403, vector:     22ae:	85d6                	mv	a1,s5
+line 404, vector:     22b0:	864e                	mv	a2,s3
+line 405, vector:     22b2:	86d2                	mv	a3,s4
+line 406, vector:     22b4:	88ca                	mv	a7,s2
+line 407, vector:     22b6:	9482                	jalr	s1
+line 408, vector:     22b8:	13c12703          	lw	a4,316(sp)
+line 409, vector:     22bc:	11c12783          	lw	a5,284(sp)
+line 410, vector:     22c0:	587e                	lw	a6,252(sp)
+line 411, vector:     22c2:	e06e                	sd	s11,0(sp)
+line 412, vector:     22c4:	e466                	sd	s9,8(sp)
+line 413, vector:     22c6:	855a                	mv	a0,s6
+line 414, vector:     22c8:	85d6                	mv	a1,s5
+line 415, vector:     22ca:	864e                	mv	a2,s3
+line 416, vector:     22cc:	86d2                	mv	a3,s4
+line 417, vector:     22ce:	88ca                	mv	a7,s2
+line 418, vector:     22d0:	9482                	jalr	s1
+line 419, vector:     22d2:	0ba1                	add	s7,s7,8
+line 420, vector:     22d4:	02040413          	add	s0,s0,32
+line 421, vector:     22d8:	efabefe3          	bltu	s7,s10,21d6 <_ZL6launchP7_objectS0_+0x298>
+line 422, vector:     22dc:	64d6                	ld	s1,336(sp)
+line 423, vector:     22de:	c481                	beqz	s1,22e6 <_ZL6launchP7_objectS0_+0x3a8>
+line 424, vector:     22e0:	8526                	mv	a0,s1
+line 425, vector:     22e2:	2ce000ef          	jal	25b0 <_ZdaPv@plt>
+line 426, vector:     22e6:	6536                	ld	a0,328(sp)
+line 427, vector:     22e8:	c119                	beqz	a0,22ee <_ZL6launchP7_objectS0_+0x3b0>
+line 428, vector:     22ea:	2c6000ef          	jal	25b0 <_ZdaPv@plt>
+line 429, vector:     22ee:	6516                	ld	a0,320(sp)
+line 430, vector:     22f0:	64e6                	ld	s1,88(sp)
+line 431, vector:     22f2:	c119                	beqz	a0,22f8 <_ZL6launchP7_objectS0_+0x3ba>
+line 432, vector:     22f4:	2bc000ef          	jal	25b0 <_ZdaPv@plt>
+line 433, vector:     22f8:	650e                	ld	a0,192(sp)
+line 434, vector:     22fa:	02950d63          	beq	a0,s1,2334 <_ZL6launchP7_objectS0_+0x3f6>
+line 435, vector:     22fe:	75ca                	ld	a1,176(sp)
+line 436, vector:     2300:	fffff517          	auipc	a0,0xfffff
+line 437, vector:     2304:	93450513          	add	a0,a0,-1740 # c34 <GCC_except_table1+0xcc>
+line 438, vector:     2308:	258000ef          	jal	2560 <Py_BuildValue@plt>
+line 439, vector:     230c:	658e                	ld	a1,192(sp)
+line 440, vector:     230e:	842a                	mv	s0,a0
+line 441, vector:     2310:	852e                	mv	a0,a1
+line 442, vector:     2312:	85a2                	mv	a1,s0
+line 443, vector:     2314:	25c000ef          	jal	2570 <PyObject_CallObject@plt>
+line 444, vector:     2318:	600c                	ld	a1,0(s0)
+line 445, vector:     231a:	02059613          	sll	a2,a1,0x20
+line 446, vector:     231e:	00064a63          	bltz	a2,2332 <_ZL6launchP7_objectS0_+0x3f4>
+line 447, vector:     2322:	15fd                	add	a1,a1,-1
+line 448, vector:     2324:	e00c                	sd	a1,0(s0)
+line 449, vector:     2326:	e591                	bnez	a1,2332 <_ZL6launchP7_objectS0_+0x3f4>
+line 450, vector:     2328:	892a                	mv	s2,a0
+line 451, vector:     232a:	8522                	mv	a0,s0
+line 452, vector:     232c:	254000ef          	jal	2580 <_Py_Dealloc@plt>
+line 453, vector:     2330:	854a                	mv	a0,s2
+line 454, vector:     2332:	c501                	beqz	a0,233a <_ZL6launchP7_objectS0_+0x3fc>
+line 455, vector:     2334:	28c000ef          	jal	25c0 <PyErr_Occurred@plt>
+line 456, vector:     2338:	c115                	beqz	a0,235c <_ZL6launchP7_objectS0_+0x41e>
+line 457, vector:     233a:	4481                	li	s1,0
+line 458, vector:     233c:	8526                	mv	a0,s1
+line 459, vector:     233e:	70fa                	ld	ra,440(sp)
+line 460, vector:     2340:	745a                	ld	s0,432(sp)
+line 461, vector:     2342:	74ba                	ld	s1,424(sp)
+line 462, vector:     2344:	791a                	ld	s2,416(sp)
+line 463, vector:     2346:	69fa                	ld	s3,408(sp)
+line 464, vector:     2348:	6a5a                	ld	s4,400(sp)
+line 465, vector:     234a:	6aba                	ld	s5,392(sp)
+line 466, vector:     234c:	6b1a                	ld	s6,384(sp)
+line 467, vector:     234e:	7bf6                	ld	s7,376(sp)
+line 468, vector:     2350:	7c56                	ld	s8,368(sp)
+line 469, vector:     2352:	7cb6                	ld	s9,360(sp)
+line 470, vector:     2354:	7d16                	ld	s10,352(sp)
+line 471, vector:     2356:	6df6                	ld	s11,344(sp)
+line 472, vector:     2358:	6139                	add	sp,sp,448
+line 473, vector:     235a:	8082                	ret
+line 474, vector:     235c:	4088                	lw	a0,0(s1)
+line 475, vector:     235e:	2505                	addw	a0,a0,1
+line 476, vector:     2360:	dd71                	beqz	a0,233c <_ZL6launchP7_objectS0_+0x3fe>
+line 477, vector:     2362:	00001597          	auipc	a1,0x1
+line 478, vector:     2366:	48e5b483          	ld	s1,1166(a1) # 37f0 <_Py_NoneStruct@Base>
+line 479, vector:     236a:	c088                	sw	a0,0(s1)
+line 480, vector:     236c:	bfc1                	j	233c <_ZL6launchP7_objectS0_+0x3fe>
+line 481, vector:     236e:	842a                	mv	s0,a0
+line 482, vector:     2370:	0288                	add	a0,sp,320
+line 483, vector:     2372:	25e000ef          	jal	25d0 <_ZN5GridsD2Ev@plt>
+line 484, vector:     2376:	8522                	mv	a0,s0
+line 485, vector:     2378:	268000ef          	jal	25e0 <_Unwind_Resume@plt>
+line 486, vector:     237c:	842a                	mv	s0,a0
+line 487, vector:     237e:	0288                	add	a0,sp,320
+line 488, vector:     2380:	250000ef          	jal	25d0 <_ZN5GridsD2Ev@plt>
+line 489, vector:     2384:	8522                	mv	a0,s0
+line 490, vector:     2386:	25a000ef          	jal	25e0 <_Unwind_Resume@plt>
+line 491, vector:     238a:	842a                	mv	s0,a0
+line 492, vector:     238c:	0288                	add	a0,sp,320
+line 493, vector:     238e:	242000ef          	jal	25d0 <_ZN5GridsD2Ev@plt>
+line 494, vector:     2392:	8522                	mv	a0,s0
+line 495, vector:     2394:	24c000ef          	jal	25e0 <_Unwind_Resume@plt>
+line 496, vector:     2398:	842a                	mv	s0,a0
+line 497, vector:     239a:	0288                	add	a0,sp,320
+line 498, vector:     239c:	234000ef          	jal	25d0 <_ZN5GridsD2Ev@plt>
+line 499, vector:     23a0:	8522                	mv	a0,s0
+line 500, vector:     23a2:	23e000ef          	jal	25e0 <_Unwind_Resume@plt>
+
+line 381, origin: 0000000000002192 <_ZL10getPointerP7_objecti>:
+line 502, vector: 00000000000023a6 <_ZL10getPointerP7_objecti>:
+line 382, origin:     2192:	7179                	add	sp,sp,-48
+line 503, vector:     23a6:	7179                	add	sp,sp,-48
+line 383, origin:     2194:	f406                	sd	ra,40(sp)
+line 504, vector:     23a8:	f406                	sd	ra,40(sp)
+line 384, origin:     2196:	f022                	sd	s0,32(sp)
+line 505, vector:     23aa:	f022                	sd	s0,32(sp)
+line 385, origin:     2198:	ec26                	sd	s1,24(sp)
+line 506, vector:     23ac:	ec26                	sd	s1,24(sp)
+line 386, origin:     219a:	e84a                	sd	s2,16(sp)
+line 507, vector:     23ae:	e84a                	sd	s2,16(sp)
+line 387, origin:     219c:	e44e                	sd	s3,8(sp)
+line 508, vector:     23b0:	e44e                	sd	s3,8(sp)
+line 388, origin:     219e:	650c                	ld	a1,8(a0)
+line 509, vector:     23b2:	650c                	ld	a1,8(a0)
+line 389, origin:     21a0:	0ab5c583          	lbu	a1,171(a1)
+line 510, vector:     23b4:	0ab5c583          	lbu	a1,171(a1)
+line 390, origin:     21a4:	8985                	and	a1,a1,1
+line 511, vector:     23b8:	8985                	and	a1,a1,1
+line 391, origin:     21a6:	edad                	bnez	a1,2220 <_ZL10getPointerP7_objecti+0x8e>
+line 512, vector:     23ba:	edad                	bnez	a1,2434 <_ZL10getPointerP7_objecti+0x8e>
+line 392, origin:     21a8:	00001597          	auipc	a1,0x1
+line 513, vector:     23bc:	00001597          	auipc	a1,0x1
+line 393, origin:     21ac:	3e85b583          	ld	a1,1000(a1) # 3590 <_Py_NoneStruct@Base>
+line 514, vector:     23c0:	4345b583          	ld	a1,1076(a1) # 37f0 <_Py_NoneStruct@Base>
+line 394, origin:     21b0:	06b50c63          	beq	a0,a1,2228 <_ZL10getPointerP7_objecti+0x96>
+line 515, vector:     23c4:	06b50c63          	beq	a0,a1,243c <_ZL10getPointerP7_objecti+0x96>
+line 395, origin:     21b4:	fffff597          	auipc	a1,0xfffff
+line 516, vector:     23c8:	fffff597          	auipc	a1,0xfffff
+line 396, origin:     21b8:	97458593          	add	a1,a1,-1676 # b28 <GCC_except_table1+0x38>
+line 517, vector:     23cc:	81c58593          	add	a1,a1,-2020 # be4 <GCC_except_table1+0x7c>
+line 397, origin:     21bc:	144000ef          	jal	2300 <PyObject_GetAttrString@plt>
+line 518, vector:     23d0:	170000ef          	jal	2540 <PyObject_GetAttrString@plt>
+line 398, origin:     21c0:	c53d                	beqz	a0,222e <_ZL10getPointerP7_objecti+0x9c>
+line 519, vector:     23d4:	c53d                	beqz	a0,2442 <_ZL10getPointerP7_objecti+0x9c>
+line 399, origin:     21c2:	84aa                	mv	s1,a0
+line 520, vector:     23d6:	84aa                	mv	s1,a0
+line 400, origin:     21c4:	4985                	li	s3,1
+line 521, vector:     23d8:	4985                	li	s3,1
+line 401, origin:     21c6:	09fe                	sll	s3,s3,0x1f
+line 522, vector:     23da:	09fe                	sll	s3,s3,0x1f
+line 402, origin:     21c8:	4501                	li	a0,0
+line 523, vector:     23dc:	4501                	li	a0,0
+line 403, origin:     21ca:	1c6000ef          	jal	2390 <PyTuple_New@plt>
+line 524, vector:     23de:	212000ef          	jal	25f0 <PyTuple_New@plt>
+line 404, origin:     21ce:	842a                	mv	s0,a0
+line 525, vector:     23e2:	842a                	mv	s0,a0
+line 405, origin:     21d0:	8526                	mv	a0,s1
+line 526, vector:     23e4:	8526                	mv	a0,s1
+line 406, origin:     21d2:	85a2                	mv	a1,s0
+line 527, vector:     23e6:	85a2                	mv	a1,s0
+line 407, origin:     21d4:	4601                	li	a2,0
+line 528, vector:     23e8:	4601                	li	a2,0
+line 408, origin:     21d6:	1ca000ef          	jal	23a0 <PyObject_Call@plt>
+line 529, vector:     23ea:	216000ef          	jal	2600 <PyObject_Call@plt>
+line 409, origin:     21da:	600c                	ld	a1,0(s0)
+line 530, vector:     23ee:	600c                	ld	a1,0(s0)
+line 410, origin:     21dc:	02059613          	sll	a2,a1,0x20
+line 531, vector:     23f0:	02059613          	sll	a2,a1,0x20
+line 411, origin:     21e0:	892a                	mv	s2,a0
+line 532, vector:     23f4:	892a                	mv	s2,a0
+line 412, origin:     21e2:	00064863          	bltz	a2,21f2 <_ZL10getPointerP7_objecti+0x60>
+line 533, vector:     23f6:	00064863          	bltz	a2,2406 <_ZL10getPointerP7_objecti+0x60>
+line 413, origin:     21e6:	15fd                	add	a1,a1,-1
+line 534, vector:     23fa:	15fd                	add	a1,a1,-1
+line 414, origin:     21e8:	e00c                	sd	a1,0(s0)
+line 535, vector:     23fc:	e00c                	sd	a1,0(s0)
+line 415, origin:     21ea:	e581                	bnez	a1,21f2 <_ZL10getPointerP7_objecti+0x60>
+line 536, vector:     23fe:	e581                	bnez	a1,2406 <_ZL10getPointerP7_objecti+0x60>
+line 416, origin:     21ec:	8522                	mv	a0,s0
+line 537, vector:     2400:	8522                	mv	a0,s0
+line 417, origin:     21ee:	152000ef          	jal	2340 <_Py_Dealloc@plt>
+line 538, vector:     2402:	17e000ef          	jal	2580 <_Py_Dealloc@plt>
+line 418, origin:     21f2:	6088                	ld	a0,0(s1)
+line 539, vector:     2406:	6088                	ld	a0,0(s1)
+line 419, origin:     21f4:	013575b3          	and	a1,a0,s3
+line 540, vector:     2408:	013575b3          	and	a1,a0,s3
+line 420, origin:     21f8:	e581                	bnez	a1,2200 <_ZL10getPointerP7_objecti+0x6e>
+line 541, vector:     240c:	e581                	bnez	a1,2414 <_ZL10getPointerP7_objecti+0x6e>
+line 421, origin:     21fa:	157d                	add	a0,a0,-1
+line 542, vector:     240e:	157d                	add	a0,a0,-1
+line 422, origin:     21fc:	e088                	sd	a0,0(s1)
+line 543, vector:     2410:	e088                	sd	a0,0(s1)
+line 423, origin:     21fe:	cd21                	beqz	a0,2256 <_ZL10getPointerP7_objecti+0xc4>
+line 544, vector:     2412:	cd21                	beqz	a0,246a <_ZL10getPointerP7_objecti+0xc4>
+line 424, origin:     2200:	00893503          	ld	a0,8(s2)
+line 545, vector:     2414:	00893503          	ld	a0,8(s2)
+line 425, origin:     2204:	0ab54503          	lbu	a0,171(a0)
+line 546, vector:     2418:	0ab54503          	lbu	a0,171(a0)
+line 426, origin:     2208:	8905                	and	a0,a0,1
+line 547, vector:     241c:	8905                	and	a0,a0,1
+line 427, origin:     220a:	ed39                	bnez	a0,2268 <_ZL10getPointerP7_objecti+0xd6>
+line 548, vector:     241e:	ed39                	bnez	a0,247c <_ZL10getPointerP7_objecti+0xd6>
+line 428, origin:     220c:	00001517          	auipc	a0,0x1
+line 549, vector:     2420:	00001517          	auipc	a0,0x1
+line 429, origin:     2210:	38c53503          	ld	a0,908(a0) # 3598 <PyExc_TypeError@Base>
+line 550, vector:     2424:	3d853503          	ld	a0,984(a0) # 37f8 <PyExc_TypeError@Base>
+line 430, origin:     2214:	6108                	ld	a0,0(a0)
+line 551, vector:     2428:	6108                	ld	a0,0(a0)
+line 431, origin:     2216:	fffff597          	auipc	a1,0xfffff
+line 552, vector:     242a:	fffff597          	auipc	a1,0xfffff
+line 432, origin:     221a:	9c758593          	add	a1,a1,-1593 # bdd <GCC_except_table1+0xed>
+line 553, vector:     242e:	86f58593          	add	a1,a1,-1937 # c99 <GCC_except_table1+0x131>
+line 433, origin:     221e:	a00d                	j	2240 <_ZL10getPointerP7_objecti+0xae>
+line 554, vector:     2432:	a00d                	j	2454 <_ZL10getPointerP7_objecti+0xae>
+line 434, origin:     2220:	190000ef          	jal	23b0 <PyLong_AsLongLong@plt>
+line 555, vector:     2434:	1dc000ef          	jal	2610 <PyLong_AsLongLong@plt>
+line 435, origin:     2224:	4585                	li	a1,1
+line 556, vector:     2438:	4585                	li	a1,1
+line 436, origin:     2226:	a00d                	j	2248 <_ZL10getPointerP7_objecti+0xb6>
+line 557, vector:     243a:	a00d                	j	245c <_ZL10getPointerP7_objecti+0xb6>
+line 437, origin:     2228:	4501                	li	a0,0
+line 558, vector:     243c:	4501                	li	a0,0
+line 438, origin:     222a:	4585                	li	a1,1
+line 559, vector:     243e:	4585                	li	a1,1
+line 439, origin:     222c:	a831                	j	2248 <_ZL10getPointerP7_objecti+0xb6>
+line 560, vector:     2440:	a831                	j	245c <_ZL10getPointerP7_objecti+0xb6>
+line 440, origin:     222e:	00001517          	auipc	a0,0x1
+line 561, vector:     2442:	00001517          	auipc	a0,0x1
+line 441, origin:     2232:	36a53503          	ld	a0,874(a0) # 3598 <PyExc_TypeError@Base>
+line 562, vector:     2446:	3b653503          	ld	a0,950(a0) # 37f8 <PyExc_TypeError@Base>
+line 442, origin:     2236:	6108                	ld	a0,0(a0)
+line 563, vector:     244a:	6108                	ld	a0,0(a0)
+line 443, origin:     2238:	fffff597          	auipc	a1,0xfffff
+line 564, vector:     244c:	fffff597          	auipc	a1,0xfffff
+line 444, origin:     223c:	96658593          	add	a1,a1,-1690 # b9e <GCC_except_table1+0xae>
+line 565, vector:     2450:	80e58593          	add	a1,a1,-2034 # c5a <GCC_except_table1+0xf2>
+line 445, origin:     2240:	180000ef          	jal	23c0 <PyErr_SetString@plt>
+line 566, vector:     2454:	1cc000ef          	jal	2620 <PyErr_SetString@plt>
+line 446, origin:     2244:	4501                	li	a0,0
+line 567, vector:     2458:	4501                	li	a0,0
+line 447, origin:     2246:	4581                	li	a1,0
+line 568, vector:     245a:	4581                	li	a1,0
+line 448, origin:     2248:	70a2                	ld	ra,40(sp)
+line 569, vector:     245c:	70a2                	ld	ra,40(sp)
+line 449, origin:     224a:	7402                	ld	s0,32(sp)
+line 570, vector:     245e:	7402                	ld	s0,32(sp)
+line 450, origin:     224c:	64e2                	ld	s1,24(sp)
+line 571, vector:     2460:	64e2                	ld	s1,24(sp)
+line 451, origin:     224e:	6942                	ld	s2,16(sp)
+line 572, vector:     2462:	6942                	ld	s2,16(sp)
+line 452, origin:     2250:	69a2                	ld	s3,8(sp)
+line 573, vector:     2464:	69a2                	ld	s3,8(sp)
+line 453, origin:     2252:	6145                	add	sp,sp,48
+line 574, vector:     2466:	6145                	add	sp,sp,48
+line 454, origin:     2254:	8082                	ret
+line 575, vector:     2468:	8082                	ret
+line 455, origin:     2256:	8526                	mv	a0,s1
+line 576, vector:     246a:	8526                	mv	a0,s1
+line 456, origin:     2258:	0e8000ef          	jal	2340 <_Py_Dealloc@plt>
+line 577, vector:     246c:	114000ef          	jal	2580 <_Py_Dealloc@plt>
+line 457, origin:     225c:	00893503          	ld	a0,8(s2)
+line 578, vector:     2470:	00893503          	ld	a0,8(s2)
+line 458, origin:     2260:	0ab54503          	lbu	a0,171(a0)
+line 579, vector:     2474:	0ab54503          	lbu	a0,171(a0)
+line 459, origin:     2264:	8905                	and	a0,a0,1
+line 580, vector:     2478:	8905                	and	a0,a0,1
+line 460, origin:     2266:	d15d                	beqz	a0,220c <_ZL10getPointerP7_objecti+0x7a>
+line 581, vector:     247a:	d15d                	beqz	a0,2420 <_ZL10getPointerP7_objecti+0x7a>
+line 461, origin:     2268:	854a                	mv	a0,s2
+line 582, vector:     247c:	854a                	mv	a0,s2
+line 462, origin:     226a:	146000ef          	jal	23b0 <PyLong_AsLongLong@plt>
+line 583, vector:     247e:	192000ef          	jal	2610 <PyLong_AsLongLong@plt>
+line 463, origin:     226e:	4585                	li	a1,1
+line 584, vector:     2482:	4585                	li	a1,1
+line 464, origin:     2270:	dd61                	beqz	a0,2248 <_ZL10getPointerP7_objecti+0xb6>
+line 585, vector:     2484:	dd61                	beqz	a0,245c <_ZL10getPointerP7_objecti+0xb6>
+line 465, origin:     2272:	00093603          	ld	a2,0(s2)
+line 586, vector:     2486:	00093603          	ld	a2,0(s2)
+line 466, origin:     2276:	013676b3          	and	a3,a2,s3
+line 587, vector:     248a:	013676b3          	and	a3,a2,s3
+line 467, origin:     227a:	f6f9                	bnez	a3,2248 <_ZL10getPointerP7_objecti+0xb6>
+line 588, vector:     248e:	f6f9                	bnez	a3,245c <_ZL10getPointerP7_objecti+0xb6>
+line 468, origin:     227c:	167d                	add	a2,a2,-1
+line 589, vector:     2490:	167d                	add	a2,a2,-1
+line 469, origin:     227e:	00c93023          	sd	a2,0(s2)
+line 590, vector:     2492:	00c93023          	sd	a2,0(s2)
+line 470, origin:     2282:	f279                	bnez	a2,2248 <_ZL10getPointerP7_objecti+0xb6>
+line 591, vector:     2496:	f279                	bnez	a2,245c <_ZL10getPointerP7_objecti+0xb6>
+line 471, origin:     2284:	842a                	mv	s0,a0
+line 592, vector:     2498:	842a                	mv	s0,a0
+line 472, origin:     2286:	854a                	mv	a0,s2
+line 593, vector:     249a:	854a                	mv	a0,s2
+line 473, origin:     2288:	0b8000ef          	jal	2340 <_Py_Dealloc@plt>
+line 594, vector:     249c:	0e4000ef          	jal	2580 <_Py_Dealloc@plt>
+line 474, origin:     228c:	4585                	li	a1,1
+line 595, vector:     24a0:	4585                	li	a1,1
+line 475, origin:     228e:	8522                	mv	a0,s0
+line 596, vector:     24a2:	8522                	mv	a0,s0
+line 476, origin:     2290:	bf65                	j	2248 <_ZL10getPointerP7_objecti+0xb6>
+line 597, vector:     24a4:	bf65                	j	245c <_ZL10getPointerP7_objecti+0xb6>
+line 600, vector:     24a6:	1141                	add	sp,sp,-16
+line 601, vector:     24a8:	e406                	sd	ra,8(sp)
+line 602, vector:     24aa:	e022                	sd	s0,0(sp)
+line 603, vector:     24ac:	842a                	mv	s0,a0
+line 604, vector:     24ae:	6908                	ld	a0,16(a0)
+line 605, vector:     24b0:	c119                	beqz	a0,24b6 <_ZN5GridsD2Ev+0x10>
+line 606, vector:     24b2:	0fe000ef          	jal	25b0 <_ZdaPv@plt>
+line 607, vector:     24b6:	6408                	ld	a0,8(s0)
+line 608, vector:     24b8:	00043823          	sd	zero,16(s0)
+line 609, vector:     24bc:	c119                	beqz	a0,24c2 <_ZN5GridsD2Ev+0x1c>
+line 610, vector:     24be:	0f2000ef          	jal	25b0 <_ZdaPv@plt>
+line 611, vector:     24c2:	6008                	ld	a0,0(s0)
+line 612, vector:     24c4:	00043423          	sd	zero,8(s0)
+line 613, vector:     24c8:	c119                	beqz	a0,24ce <_ZN5GridsD2Ev+0x28>
+line 614, vector:     24ca:	0e6000ef          	jal	25b0 <_ZdaPv@plt>
+line 615, vector:     24ce:	00043023          	sd	zero,0(s0)
+line 616, vector:     24d2:	60a2                	ld	ra,8(sp)
+line 617, vector:     24d4:	6402                	ld	s0,0(sp)
+line 618, vector:     24d6:	0141                	add	sp,sp,16
+line 619, vector:     24d8:	8082                	ret
+
+line 480, origin: Disassembly of section .plt:
+line 621, vector: Disassembly of section .plt:
+
+line 480, origin: 00000000000022a0 <PyModule_Create2@plt-0x20>:
+line 623, vector: 00000000000024e0 <PyModule_Create2@plt-0x20>:
+line 481, origin:     22a0:	00002397          	auipc	t2,0x2
+line 624, vector:     24e0:	00002397          	auipc	t2,0x2
+line 482, origin:     22a4:	41c30333          	sub	t1,t1,t3
+line 625, vector:     24e4:	41c30333          	sub	t1,t1,t3
+line 483, origin:     22a8:	3b83be03          	ld	t3,952(t2) # 4658 <__TMC_END__>
+line 626, vector:     24e8:	3d83be03          	ld	t3,984(t2) # 48b8 <__TMC_END__>
+line 484, origin:     22ac:	fd430313          	add	t1,t1,-44
+line 627, vector:     24ec:	fd430313          	add	t1,t1,-44
+line 485, origin:     22b0:	3b838293          	add	t0,t2,952
+line 628, vector:     24f0:	3d838293          	add	t0,t2,984
+line 486, origin:     22b4:	00135313          	srl	t1,t1,0x1
+line 629, vector:     24f4:	00135313          	srl	t1,t1,0x1
+line 487, origin:     22b8:	0082b283          	ld	t0,8(t0)
+line 630, vector:     24f8:	0082b283          	ld	t0,8(t0)
+line 488, origin:     22bc:	000e0067          	jr	t3
+line 631, vector:     24fc:	000e0067          	jr	t3
+
+line 490, origin: 00000000000022c0 <PyModule_Create2@plt>:
+line 633, vector: 0000000000002500 <PyModule_Create2@plt>:
+line 491, origin:     22c0:	00002e17          	auipc	t3,0x2
+line 634, vector:     2500:	00002e17          	auipc	t3,0x2
+line 492, origin:     22c4:	3a8e3e03          	ld	t3,936(t3) # 4668 <PyModule_Create2@Base>
+line 635, vector:     2504:	3c8e3e03          	ld	t3,968(t3) # 48c8 <PyModule_Create2@Base>
+line 493, origin:     22c8:	000e0367          	jalr	t1,t3
+line 636, vector:     2508:	000e0367          	jalr	t1,t3
+line 494, origin:     22cc:	00000013          	nop
+line 637, vector:     250c:	00000013          	nop
+
+line 496, origin: 00000000000022d0 <PyModule_AddFunctions@plt>:
+line 639, vector: 0000000000002510 <PyModule_AddFunctions@plt>:
+line 497, origin:     22d0:	00002e17          	auipc	t3,0x2
+line 640, vector:     2510:	00002e17          	auipc	t3,0x2
+line 498, origin:     22d4:	3a0e3e03          	ld	t3,928(t3) # 4670 <PyModule_AddFunctions@Base>
+line 641, vector:     2514:	3c0e3e03          	ld	t3,960(t3) # 48d0 <PyModule_AddFunctions@Base>
+line 499, origin:     22d8:	000e0367          	jalr	t1,t3
+line 642, vector:     2518:	000e0367          	jalr	t1,t3
+line 500, origin:     22dc:	00000013          	nop
+line 643, vector:     251c:	00000013          	nop
+
+line 502, origin: 00000000000022e0 <PyArg_ParseTuple@plt>:
+line 645, vector: 0000000000002520 <PyArg_ParseTuple@plt>:
+line 503, origin:     22e0:	00002e17          	auipc	t3,0x2
+line 646, vector:     2520:	00002e17          	auipc	t3,0x2
+line 504, origin:     22e4:	398e3e03          	ld	t3,920(t3) # 4678 <PyArg_ParseTuple@Base>
+line 647, vector:     2524:	3b8e3e03          	ld	t3,952(t3) # 48d8 <PyArg_ParseTuple@Base>
+line 505, origin:     22e8:	000e0367          	jalr	t1,t3
+line 648, vector:     2528:	000e0367          	jalr	t1,t3
+line 506, origin:     22ec:	00000013          	nop
+line 649, vector:     252c:	00000013          	nop
+
+line 508, origin: 00000000000022f0 <PyLong_AsVoidPtr@plt>:
+line 651, vector: 0000000000002530 <PyLong_AsVoidPtr@plt>:
+line 509, origin:     22f0:	00002e17          	auipc	t3,0x2
+line 652, vector:     2530:	00002e17          	auipc	t3,0x2
+line 510, origin:     22f4:	390e3e03          	ld	t3,912(t3) # 4680 <PyLong_AsVoidPtr@Base>
+line 653, vector:     2534:	3b0e3e03          	ld	t3,944(t3) # 48e0 <PyLong_AsVoidPtr@Base>
+line 511, origin:     22f8:	000e0367          	jalr	t1,t3
+line 654, vector:     2538:	000e0367          	jalr	t1,t3
+line 512, origin:     22fc:	00000013          	nop
+line 655, vector:     253c:	00000013          	nop
+
+line 514, origin: 0000000000002300 <PyObject_GetAttrString@plt>:
+line 657, vector: 0000000000002540 <PyObject_GetAttrString@plt>:
+line 515, origin:     2300:	00002e17          	auipc	t3,0x2
+line 658, vector:     2540:	00002e17          	auipc	t3,0x2
+line 516, origin:     2304:	388e3e03          	ld	t3,904(t3) # 4688 <PyObject_GetAttrString@Base>
+line 659, vector:     2544:	3a8e3e03          	ld	t3,936(t3) # 48e8 <PyObject_GetAttrString@Base>
+line 517, origin:     2308:	000e0367          	jalr	t1,t3
+line 660, vector:     2548:	000e0367          	jalr	t1,t3
+line 518, origin:     230c:	00000013          	nop
+line 661, vector:     254c:	00000013          	nop
+
+line 520, origin: 0000000000002310 <PyLong_AsLong@plt>:
+line 663, vector: 0000000000002550 <PyLong_AsLong@plt>:
+line 521, origin:     2310:	00002e17          	auipc	t3,0x2
+line 664, vector:     2550:	00002e17          	auipc	t3,0x2
+line 522, origin:     2314:	380e3e03          	ld	t3,896(t3) # 4690 <PyLong_AsLong@Base>
+line 665, vector:     2554:	3a0e3e03          	ld	t3,928(t3) # 48f0 <PyLong_AsLong@Base>
+line 523, origin:     2318:	000e0367          	jalr	t1,t3
+line 666, vector:     2558:	000e0367          	jalr	t1,t3
+line 524, origin:     231c:	00000013          	nop
+line 667, vector:     255c:	00000013          	nop
+
+line 526, origin: 0000000000002320 <Py_BuildValue@plt>:
+line 669, vector: 0000000000002560 <Py_BuildValue@plt>:
+line 527, origin:     2320:	00002e17          	auipc	t3,0x2
+line 670, vector:     2560:	00002e17          	auipc	t3,0x2
+line 528, origin:     2324:	378e3e03          	ld	t3,888(t3) # 4698 <Py_BuildValue@Base>
+line 671, vector:     2564:	398e3e03          	ld	t3,920(t3) # 48f8 <Py_BuildValue@Base>
+line 529, origin:     2328:	000e0367          	jalr	t1,t3
+line 672, vector:     2568:	000e0367          	jalr	t1,t3
+line 530, origin:     232c:	00000013          	nop
+line 673, vector:     256c:	00000013          	nop
+
+line 532, origin: 0000000000002330 <PyObject_CallObject@plt>:
+line 675, vector: 0000000000002570 <PyObject_CallObject@plt>:
+line 533, origin:     2330:	00002e17          	auipc	t3,0x2
+line 676, vector:     2570:	00002e17          	auipc	t3,0x2
+line 534, origin:     2334:	370e3e03          	ld	t3,880(t3) # 46a0 <PyObject_CallObject@Base>
+line 677, vector:     2574:	390e3e03          	ld	t3,912(t3) # 4900 <PyObject_CallObject@Base>
+line 535, origin:     2338:	000e0367          	jalr	t1,t3
+line 678, vector:     2578:	000e0367          	jalr	t1,t3
+line 536, origin:     233c:	00000013          	nop
+line 679, vector:     257c:	00000013          	nop
+
+line 538, origin: 0000000000002340 <_Py_Dealloc@plt>:
+line 681, vector: 0000000000002580 <_Py_Dealloc@plt>:
+line 539, origin:     2340:	00002e17          	auipc	t3,0x2
+line 682, vector:     2580:	00002e17          	auipc	t3,0x2
+line 540, origin:     2344:	368e3e03          	ld	t3,872(t3) # 46a8 <_Py_Dealloc@Base>
+line 683, vector:     2584:	388e3e03          	ld	t3,904(t3) # 4908 <_Py_Dealloc@Base>
+line 541, origin:     2348:	000e0367          	jalr	t1,t3
+line 684, vector:     2588:	000e0367          	jalr	t1,t3
+line 542, origin:     234c:	00000013          	nop
+line 685, vector:     258c:	00000013          	nop
+
+line 544, origin: 0000000000002350 <_Znam@plt>:
+line 687, vector: 0000000000002590 <_Znam@plt>:
+line 545, origin:     2350:	00002e17          	auipc	t3,0x2
+line 688, vector:     2590:	00002e17          	auipc	t3,0x2
+line 546, origin:     2354:	360e3e03          	ld	t3,864(t3) # 46b0 <_Znam@GLIBCXX_3.4>
+line 689, vector:     2594:	380e3e03          	ld	t3,896(t3) # 4910 <_Znam@GLIBCXX_3.4>
+line 547, origin:     2358:	000e0367          	jalr	t1,t3
+line 690, vector:     2598:	000e0367          	jalr	t1,t3
+line 548, origin:     235c:	00000013          	nop
+line 691, vector:     259c:	00000013          	nop
+line 551, origin:     2360:	00002e17          	auipc	t3,0x2
+line 552, origin:     2364:	358e3e03          	ld	t3,856(t3) # 46b8 <_ZdaPv@GLIBCXX_3.4>
+line 553, origin:     2368:	000e0367          	jalr	t1,t3
+line 554, origin:     236c:	00000013          	nop
+line 694, vector:     25a0:	00002e17          	auipc	t3,0x2
+line 695, vector:     25a4:	378e3e03          	ld	t3,888(t3) # 4918 <memset@GLIBC_2.27>
+line 696, vector:     25a8:	000e0367          	jalr	t1,t3
+line 697, vector:     25ac:	00000013          	nop
+line 700, vector:     25b0:	00002e17          	auipc	t3,0x2
+line 701, vector:     25b4:	370e3e03          	ld	t3,880(t3) # 4920 <_ZdaPv@GLIBCXX_3.4>
+line 702, vector:     25b8:	000e0367          	jalr	t1,t3
+line 703, vector:     25bc:	00000013          	nop
+
+line 556, origin: 0000000000002370 <PyErr_Occurred@plt>:
+line 705, vector: 00000000000025c0 <PyErr_Occurred@plt>:
+line 557, origin:     2370:	00002e17          	auipc	t3,0x2
+line 706, vector:     25c0:	00002e17          	auipc	t3,0x2
+line 558, origin:     2374:	350e3e03          	ld	t3,848(t3) # 46c0 <PyErr_Occurred@Base>
+line 707, vector:     25c4:	368e3e03          	ld	t3,872(t3) # 4928 <PyErr_Occurred@Base>
+line 559, origin:     2378:	000e0367          	jalr	t1,t3
+line 708, vector:     25c8:	000e0367          	jalr	t1,t3
+line 560, origin:     237c:	00000013          	nop
+line 709, vector:     25cc:	00000013          	nop
+line 563, origin:     2380:	00002e17          	auipc	t3,0x2
+line 564, origin:     2384:	348e3e03          	ld	t3,840(t3) # 46c8 <_Unwind_Resume@GCC_3.0>
+line 565, origin:     2388:	000e0367          	jalr	t1,t3
+line 566, origin:     238c:	00000013          	nop
+line 712, vector:     25d0:	00002e17          	auipc	t3,0x2
+line 713, vector:     25d4:	360e3e03          	ld	t3,864(t3) # 4930 <_ZN5GridsD2Ev@@Base+0x248a>
+line 714, vector:     25d8:	000e0367          	jalr	t1,t3
+line 715, vector:     25dc:	00000013          	nop
+line 718, vector:     25e0:	00002e17          	auipc	t3,0x2
+line 719, vector:     25e4:	358e3e03          	ld	t3,856(t3) # 4938 <_Unwind_Resume@GCC_3.0>
+line 720, vector:     25e8:	000e0367          	jalr	t1,t3
+line 721, vector:     25ec:	00000013          	nop
+
+line 568, origin: 0000000000002390 <PyTuple_New@plt>:
+line 723, vector: 00000000000025f0 <PyTuple_New@plt>:
+line 569, origin:     2390:	00002e17          	auipc	t3,0x2
+line 724, vector:     25f0:	00002e17          	auipc	t3,0x2
+line 570, origin:     2394:	340e3e03          	ld	t3,832(t3) # 46d0 <PyTuple_New@Base>
+line 725, vector:     25f4:	350e3e03          	ld	t3,848(t3) # 4940 <PyTuple_New@Base>
+line 571, origin:     2398:	000e0367          	jalr	t1,t3
+line 726, vector:     25f8:	000e0367          	jalr	t1,t3
+line 572, origin:     239c:	00000013          	nop
+line 727, vector:     25fc:	00000013          	nop
+
+line 574, origin: 00000000000023a0 <PyObject_Call@plt>:
+line 729, vector: 0000000000002600 <PyObject_Call@plt>:
+line 575, origin:     23a0:	00002e17          	auipc	t3,0x2
+line 730, vector:     2600:	00002e17          	auipc	t3,0x2
+line 576, origin:     23a4:	338e3e03          	ld	t3,824(t3) # 46d8 <PyObject_Call@Base>
+line 731, vector:     2604:	348e3e03          	ld	t3,840(t3) # 4948 <PyObject_Call@Base>
+line 577, origin:     23a8:	000e0367          	jalr	t1,t3
+line 732, vector:     2608:	000e0367          	jalr	t1,t3
+line 578, origin:     23ac:	00000013          	nop
+line 733, vector:     260c:	00000013          	nop
+
+line 580, origin: 00000000000023b0 <PyLong_AsLongLong@plt>:
+line 735, vector: 0000000000002610 <PyLong_AsLongLong@plt>:
+line 581, origin:     23b0:	00002e17          	auipc	t3,0x2
+line 736, vector:     2610:	00002e17          	auipc	t3,0x2
+line 582, origin:     23b4:	330e3e03          	ld	t3,816(t3) # 46e0 <PyLong_AsLongLong@Base>
+line 737, vector:     2614:	340e3e03          	ld	t3,832(t3) # 4950 <PyLong_AsLongLong@Base>
+line 583, origin:     23b8:	000e0367          	jalr	t1,t3
+line 738, vector:     2618:	000e0367          	jalr	t1,t3
+line 584, origin:     23bc:	00000013          	nop
+line 739, vector:     261c:	00000013          	nop
+
+line 586, origin: 00000000000023c0 <PyErr_SetString@plt>:
+line 741, vector: 0000000000002620 <PyErr_SetString@plt>:
+line 587, origin:     23c0:	00002e17          	auipc	t3,0x2
+line 742, vector:     2620:	00002e17          	auipc	t3,0x2
+line 588, origin:     23c4:	328e3e03          	ld	t3,808(t3) # 46e8 <PyErr_SetString@Base>
+line 743, vector:     2624:	338e3e03          	ld	t3,824(t3) # 4958 <PyErr_SetString@Base>
+line 589, origin:     23c8:	000e0367          	jalr	t1,t3
+line 744, vector:     2628:	000e0367          	jalr	t1,t3
+line 590, origin:     23cc:	00000013          	nop
+line 745, vector:     262c:	00000013          	nop
